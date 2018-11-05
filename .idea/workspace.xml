@@ -2,10 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f2ae6013-bf58-4420-a13d-f7df49360d8f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/app/models/customer.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/customer.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/movie.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/movie.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/rental.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/rental.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/migrate/20181105203219_create_customers.rb" beforeDir="false" afterPath="$PROJECT_DIR$/db/migrate/20181105203219_create_customers.rb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/controllers/customers_controller.rb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/controllers/movies_controller.rb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/controllers/rentals_controller.rb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/controllers/customers_controller_test.rb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/controllers/movies_controller_test.rb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/controllers/rentals_controller_test.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/routes.rb" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.rb" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -24,38 +28,29 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="json" value="2" />
-          <entry key="rb" value="12" />
+          <entry key="rb" value="14" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="JSON" value="2" />
-          <entry key="Ruby" value="12" />
+          <entry key="Ruby" value="14" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="rb" value="505" />
+          <entry key="rb" value="562" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Ruby" value="505" />
+          <entry key="Ruby" value="562" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models/movie.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="3" selection-start-line="3" selection-end-line="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/models/rental.rb">
           <provider selected="true" editor-type-id="text-editor">
@@ -86,7 +81,16 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/db/schema.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-669" />
+            <state relative-caret-position="-819" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/controllers/rentals_controller.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="320">
+              <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+            </state>
           </provider>
         </entry>
       </file>
@@ -99,7 +103,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/db/migrate/20181105205816_add_refs_to_rental_proper_way.rb">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="180">
@@ -143,6 +147,7 @@
         <option value="$PROJECT_DIR$/db/migrate/20181105205256_add_refs_to_rental.rb" />
         <option value="$PROJECT_DIR$/db/migrate/20181105205609_rm_refs_rentals.rb" />
         <option value="$PROJECT_DIR$/db/migrate/20181105205816_add_refs_to_rental_proper_way.rb" />
+        <option value="$PROJECT_DIR$/app/controllers/rentals_controller.rb" />
       </list>
     </option>
   </component>
@@ -252,19 +257,19 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1541444424555</updated>
-      <workItem from="1541444425984" duration="2873000" />
+      <workItem from="1541444425984" duration="3797000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2873000" />
+    <option name="totallyTimeSpent" value="3797000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="871" height="877" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2738239" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.47285888" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
@@ -341,11 +346,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/db/schema.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-669" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/db/migrate/20181105205609_rm_refs_rentals.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -364,6 +364,25 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/customer_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="11" column="5" lean-forward="true" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/schema.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-819" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/rentals_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
         </state>
       </provider>
     </entry>
