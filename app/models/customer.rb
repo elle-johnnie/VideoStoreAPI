@@ -8,8 +8,10 @@ class Customer < ApplicationRecord
   validates :registered_at, presence: true
   validates :postal_code, presence: true
   validates :phone, presence: true
-  validates :movies_out_count, presence: true
+  # validates :movies_out_count, presence: true
 
-
+  def movies_out_count
+    return self.rentals.where({checkin_date: nil}).count
+  end
 
 end

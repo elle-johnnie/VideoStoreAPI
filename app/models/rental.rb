@@ -1,6 +1,6 @@
 class Rental < ApplicationRecord
   # relationships
-  belongs_to :customer
+  belongs_to :customer #, counter_cache: :movies_out_count
   belongs_to :movie
 
   # validations
@@ -8,3 +8,5 @@ class Rental < ApplicationRecord
   validates :due_date, presence: true
 
 end
+
+# Rental.new(checkout_date: Date.yesterday, due_date: Date.tomorrow, movie_id: 4, customer_id: 1)
