@@ -51,4 +51,6 @@ end
 group :test do
   gem 'minitest-rails'
   gem 'minitest-reporters'
+  gem 'shoulda'
+  gem 'shoulda-matchers'
 end

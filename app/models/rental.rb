@@ -3,7 +3,7 @@ class Rental < ApplicationRecord
   belongs_to :customer #, counter_cache: :movies_out_count
   belongs_to :movie
 
-  # validations
+  # validationss
   validates :checkout_date, presence: true
   validates :due_date, presence: true
 

@@ -5,6 +5,7 @@ one:
   checkin_date: 2018-11-05
   due_date: 2018-11-05
 
+
 two:
   checkout_date: 2018-11-05
   checkin_date: 2018-11-05
