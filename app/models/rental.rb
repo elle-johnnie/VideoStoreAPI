@@ -7,5 +7,4 @@ class Rental < ApplicationRecord
   validates :checkout_date, presence: true
   validates :due_date, presence: true
 
-
 end

@@ -8,6 +8,6 @@ class Movie < ApplicationRecord
   validates :title, presence: true
   validates :release_date, presence: true
   validates :inventory, presence: true
-  validates :inventory_availability, presence: true
+  validates :inventory_available, presence: true
 
 end
