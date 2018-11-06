@@ -1,5 +1,5 @@
 class Rental < ApplicationRecord
-  # relationships
+    # relationships
   belongs_to :customer #, counter_cache: :movies_out_count
   belongs_to :movie
 
