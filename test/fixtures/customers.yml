@@ -1,19 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-customer1:
+customer_in:
   name: MyString
   registered_at: 2018-11-05 12:32:19
-  address: MyString
+  address:
   state: MyString
   postal_code: MyString
   phone: MyString
-  movies_out_count: 0
 
-customer2:
+customer_out:
   name: MyString
   registered_at: 2018-11-05 12:32:19
-  address: MyString
+  address:
   state: MyString
   postal_code: MyString
   phone: MyString
-  movies_out_count: 0

@@ -1,13 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-movie1:
+movie_out:
   title: MyString
   overview: MyString
   release_date: 2018-11-05
-  inventory: 1
+  inventory: 2
+  inventory_available: 1
 
-movie2:
+movie_in:
   title: MyString
   overview: MyString
   release_date: 2018-11-05
   inventory: 1
+  inventory_available: 1
