@@ -58,7 +58,7 @@ describe MoviesController do
                       }
     }
 
-    it 'has a properly defined route' do
+    it 'can create a new movie in db with valid data and return an id' do
       expect{
         post movies_path, params: movie_hash, as: :json
       }.must_change 'Movie.count', 1
@@ -70,11 +70,15 @@ describe MoviesController do
       expect(body["id"]).must_equal Movie.last.id
     end
 
-    it 'can create a new movie in db with valid data' do
-
-    end
-
     it 'will not change db if a movie is created w/ garbage data' do
+      movie_hash[:title] = nil
+      expect{
+        post movies_path, params: movie_hash, as: :json
+      }.wont_change 'Movie.count'
+      body = JSON.parse(response.body)
+      must_respond_with :bad_request
+      expect(body["ok"]).must_equal false
+      expect(body["cause"]).must_equal "validation errors"
 
     end
   end

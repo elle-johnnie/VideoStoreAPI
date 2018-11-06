@@ -45,9 +45,7 @@ class MoviesController < ApplicationController
   def create
     movie_params[:inventory_available] = movie_params[:inventory]
     @movie = Movie.new(movie_params)
-    @movie.save
-    
-    if !@movie.valid?
+    unless @movie.save
       render json: {ok: false, cause: "validation errors", errors: @movie.errors}, status: :bad_request
     end
   end
