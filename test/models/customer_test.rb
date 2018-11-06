@@ -27,12 +27,23 @@ describe Customer do
   end
 
   describe 'relationships' do
+    let(:cust) { customers(:customer_out) }
     it 'can have many rentals' do
+      rents = cust.rentals
 
+      expect(rents.length).must_be :>, 1
+      rents.each do |r|
+        expect(r).must_be_instance_of Rental
+      end
     end
 
-    it 'has many movies through rentals' do
-
+    it 'can have many movies through rentals' do
+      movies = cust.movies
+      # binding.pry
+      expect(movies.length).must_be :>, 1
+      movies.each do |m|
+        expect(m).must_be_instance_of Movie
+      end
     end
 
 
