@@ -25,10 +25,8 @@ describe Customer do
     end
   end
 
-end
 
-
-  describe 'relationships' do
+  describe 'Relationships' do
     let(:cust) { customers(:customer_out) }
     it 'can have many rentals' do
       rents = cust.rentals
