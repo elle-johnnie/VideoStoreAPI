@@ -1,3 +1,3 @@
 collection @customers
-
-extends "customers/show"
+attributes :id, :name, :registered_at, :postal_code, :phone
+node(:movies_checked_out_count) {|customer| movies_out_count(customer) }
