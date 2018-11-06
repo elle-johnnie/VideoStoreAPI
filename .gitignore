@@ -22,6 +22,7 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 # Simplecov
 /coverage/*
@@ -29,4 +30,7 @@
 .idea
 .idea
 >>>>>>> test/model_relationships
+=======
+>>>>>>> test/api_tests
+.idea
 .idea
