@@ -8,5 +8,4 @@ Rails.application.routes.draw do
   post '/rentals/check_in', to: 'rentals#check_in', as: 'check_in'
 
   get '/zomg', to: 'rentals#zomg', as: 'zomg'
-
 end
