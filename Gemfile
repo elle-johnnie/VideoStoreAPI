@@ -51,10 +51,6 @@ end
 group :test do
   gem 'minitest-rails'
   gem 'minitest-reporters'
-<<<<<<< HEAD
   gem 'simplecov', require: false
-=======
-  # gem 'shoulda', '~> 3.5'
-  # gem 'shoulda-matchers', '~> 2.0'
->>>>>>> test/model_relationships
+
 end

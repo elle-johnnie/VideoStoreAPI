@@ -1,12 +1,14 @@
 class MoviesController < ApplicationController
-  protect_from_forgery with: :null_session
+  # protect_from_forgery with: :null_session
   
   # GET MOVIES
   def show
+    @movie = Movie.find_by(id: params[:id])
   end
 
   # GET MOVIES
   def index
+    @movies = Movie.all
   end
 
   # POST MOVIES
