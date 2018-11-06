@@ -25,18 +25,8 @@ describe Customer do
     end
   end
 
-  describe 'Custom Methods' do
-    it 'movies_out_count is correct for customers with rental history' do
-      expect(customers(:customer_out).movies_out_count).must_equal 1
-      expect(customers(:customer_in).movies_out_count).must_equal 0
-    end
+end
 
-    it 'movies_out_count works on a customer with no rentals' do
-      Rental.destroy_all
-      expect(customers(:customer_out).rentals.count).must_equal 0
-      expect(customers(:customer_out).movies_out_count).must_equal 0
-    end
-  end
 
   describe 'relationships' do
     let(:cust) { customers(:customer_out) }
@@ -62,3 +52,17 @@ describe Customer do
   end
 end
 
+
+
+# describe 'Custom Methods' do
+#   it 'movies_out_count is correct for customers with rental history' do
+#     expect(customers(:customer_out).movies_out_count).must_equal 1
+#     expect(customers(:customer_in).movies_out_count).must_equal 0
+#   end
+#
+#   it 'movies_out_count works on a customer with no rentals' do
+#     Rental.destroy_all
+#     expect(customers(:customer_out).rentals.count).must_equal 0
+#     expect(customers(:customer_out).movies_out_count).must_equal 0
+#   end
+# end

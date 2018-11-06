@@ -9,7 +9,6 @@ class RentalsController < ApplicationController
   def show
   end
 
-
   # GET RENTALS
   def zomg
     render json: {message: "it_works"}
@@ -18,7 +17,6 @@ class RentalsController < ApplicationController
   # POST RENTALS
   def update
   end
-
 
   # POST RENTALS
   def check_out
