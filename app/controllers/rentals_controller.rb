@@ -1,5 +1,6 @@
 class RentalsController < ApplicationController
-
+  protect_from_forgery with: :null_session
+  
   # GET RENTALS
   def index
   end
