@@ -1,6 +1,6 @@
 class RentalsController < ApplicationController
   protect_from_forgery with: :null_session
-  
+
   # GET RENTALS
   def index
   end
@@ -8,7 +8,6 @@ class RentalsController < ApplicationController
   # GET RENTALS
   def show
   end
-
 
   # GET RENTALS
   def zomg
@@ -18,7 +17,6 @@ class RentalsController < ApplicationController
   # POST RENTALS
   def update
   end
-
 
   # POST RENTALS
   def check_out
