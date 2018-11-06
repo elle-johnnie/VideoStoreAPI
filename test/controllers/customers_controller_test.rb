@@ -1,7 +1,6 @@
 require "test_helper"
 
 describe CustomersController do
-
   describe 'index action' do
     it "should get index" do
       get customers_path, as: :json

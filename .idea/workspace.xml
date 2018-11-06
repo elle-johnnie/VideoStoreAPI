@@ -2,17 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f2ae6013-bf58-4420-a13d-f7df49360d8f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/helpers/application_helper.rb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/helpers/customers_helper.rb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/views/customers/index.html.erb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/views/customers/index.json.rabl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gemfile" beforeDir="false" afterPath="$PROJECT_DIR$/Gemfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/customers_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/customers_controller.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/rentals_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/rentals_controller.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/customer.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/customer.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/initializers/rabl_config.rb" beforeDir="false" afterPath="$PROJECT_DIR$/config/initializers/rabl_config.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/movies/index.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/movies/index.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/movies/index.json.rabl" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/movies/index.json.rabl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/movies/show.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/movies/show.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/movies/show.json.rabl" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/movies/show.json.rabl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/rentals/index.json.rabl" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/test/controllers/customers_controller_test.rb" beforeDir="false" afterPath="$PROJECT_DIR$/test/controllers/customers_controller_test.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/models/customer_test.rb" beforeDir="false" afterPath="$PROJECT_DIR$/test/models/customer_test.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/controllers/movies_controller_test.rb" beforeDir="false" afterPath="$PROJECT_DIR$/test/controllers/movies_controller_test.rb" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,6 +22,7 @@
     <SUITE FILE_PATH="coverage/VideoStoreAPI@has_many_movies_through_rentals__customer_test_rb___VideoStoreAPI.rcov" NAME="has many movies through rentals (customer_test.rb): VideoStoreAPI Coverage Results" MODIFIED="1541478168150" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="VideoStoreAPI" />
     <SUITE FILE_PATH="coverage/VideoStoreAPI@has_many_rentals__movie_test_rb___VideoStoreAPI.rcov" NAME="has many rentals (movie_test.rb): VideoStoreAPI Coverage Results" MODIFIED="1541478852195" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="VideoStoreAPI" />
     <SUITE FILE_PATH="coverage/VideoStoreAPI@has_customers__rental_test_rb___VideoStoreAPI.rcov" NAME="has customers (rental_test.rb): VideoStoreAPI Coverage Results" MODIFIED="1541462797670" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="VideoStoreAPI" />
+    <SUITE FILE_PATH="coverage/VideoStoreAPI@should_get_index__movies_controller_test_rb___VideoStoreAPI.rcov" NAME="should get index (movies_controller_test.rb): VideoStoreAPI Coverage Results" MODIFIED="1541538979485" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="VideoStoreAPI" />
     <SUITE FILE_PATH="coverage/VideoStoreAPI@belongs_to_an_customer__rental_test_rb___VideoStoreAPI.rcov" NAME="belongs to an customer (rental_test.rb): VideoStoreAPI Coverage Results" MODIFIED="1541463486515" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="VideoStoreAPI" />
     <SUITE FILE_PATH="coverage/VideoStoreAPI@can_have_many_movies_through_rentals__customer_test_rb___VideoStoreAPI.rcov" NAME="can have many movies through rentals (customer_test.rb): VideoStoreAPI Coverage Results" MODIFIED="1541478446505" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="VideoStoreAPI" />
     <SUITE FILE_PATH="coverage/VideoStoreAPI@has_many_customers__rental_test_rb___VideoStoreAPI.rcov" NAME="has many customers (rental_test.rb): VideoStoreAPI Coverage Results" MODIFIED="1541461799641" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="VideoStoreAPI" />
@@ -82,87 +80,78 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="Gemfile" value="10" />
-          <entry key="erb" value="31" />
-          <entry key="rabl" value="188" />
-          <entry key="rb" value="985" />
+          <entry key="erb" value="129" />
+          <entry key="rabl" value="596" />
+          <entry key="rb" value="1049" />
           <entry key="yml" value="15" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="RHTML" value="31" />
-          <entry key="Ruby" value="1183" />
+          <entry key="RHTML" value="129" />
+          <entry key="Ruby" value="1655" />
           <entry key="YAML" value="15" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="Gemfile" value="2" />
-          <entry key="erb" value="2" />
+          <entry key="erb" value="8" />
           <entry key="md" value="1" />
-          <entry key="rabl" value="2" />
-          <entry key="rb" value="17" />
+          <entry key="rabl" value="12" />
+          <entry key="rb" value="19" />
           <entry key="yml" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Markdown" value="1" />
-          <entry key="RHTML" value="2" />
-          <entry key="Ruby" value="21" />
+          <entry key="RHTML" value="8" />
+          <entry key="Ruby" value="33" />
           <entry key="YAML" value="3" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+    <leaf>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/rentals_controller.rb">
+        <entry file="file://$PROJECT_DIR$/app/views/movies/index.json.rabl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="80">
+              <caret line="3" selection-start-line="3" selection-end-line="3" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/movies/show.json.rabl">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="20">
-              <caret line="2" selection-start-line="2" selection-end-line="2" />
+              <caret line="1" selection-start-line="1" selection-end-line="1" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Gemfile">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1680">
-              <caret line="57" selection-start-line="57" selection-end-line="57" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/movies_controller.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="10" column="23" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/routes.rb">
+        <entry file="file://$PROJECT_DIR$/app/views/customers/index.json.rabl">
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/initializers/rabl_config.rb">
+        <entry file="file://$PROJECT_DIR$/test/controllers/customers_controller_test.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+            <state relative-caret-position="100">
+              <caret line="5" column="8" selection-start-line="3" selection-start-column="2" selection-end-line="16" selection-end-column="7" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/controllers/customers_controller.rb">
+        <entry file="file://$PROJECT_DIR$/test/controllers/movies_controller_test.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="140">
-              <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+            <state relative-caret-position="128">
+              <caret line="18" column="4" selection-start-line="18" selection-start-column="6" selection-end-line="32" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -204,10 +193,18 @@
         <option value="$PROJECT_DIR$/app/views/layouts/movies/index.json.rabl" />
         <option value="$PROJECT_DIR$/app/views/layouts/movies/show.html.erb" />
         <option value="$PROJECT_DIR$/app/controllers/movies_controller.rb" />
-        <option value="$PROJECT_DIR$/app/views/movies/index.json.rabl" />
-        <option value="$PROJECT_DIR$/app/views/movies/show.json.rabl" />
         <option value="$PROJECT_DIR$/config/initializers/rabl_config.rb" />
         <option value="$PROJECT_DIR$/app/controllers/customers_controller.rb" />
+        <option value="$PROJECT_DIR$/app/views/movies/index.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/movies/show.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/rentals/index.json.rabl" />
+        <option value="$PROJECT_DIR$/app/views/rentals/show.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/rentals/index.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/rentals/show.json.rabl" />
+        <option value="$PROJECT_DIR$/app/views/movies/show.json.rabl" />
+        <option value="$PROJECT_DIR$/app/views/movies/index.json.rabl" />
+        <option value="$PROJECT_DIR$/test/controllers/customers_controller_test.rb" />
+        <option value="$PROJECT_DIR$/test/controllers/movies_controller_test.rb" />
       </list>
     </option>
   </component>
@@ -219,7 +216,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
-    <option name="width" value="720" />
+    <option name="width" value="1368" />
     <option name="height" value="877" />
   </component>
   <component name="ProjectView">
@@ -243,7 +240,28 @@
               <item name="VideoStoreAPI" type="b2602c69:ProjectViewProjectNode" />
               <item name="VideoStoreAPI" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="controllers" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="VideoStoreAPI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="VideoStoreAPI" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="customers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="VideoStoreAPI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="VideoStoreAPI" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="layouts" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="VideoStoreAPI" type="b2602c69:ProjectViewProjectNode" />
+              <item name="VideoStoreAPI" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="movies" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="VideoStoreAPI" type="b2602c69:ProjectViewProjectNode" />
@@ -309,7 +327,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Test::Unit/Shoulda/Minitest.has many customers through rental (movie_test.rb): VideoStoreAPI">
+  <component name="RunManager" selected="Test::Unit/Shoulda/Minitest.should get index (movies_controller_test.rb): VideoStoreAPI">
     <configuration name="can have many movies through rentals (customer_test.rb): VideoStoreAPI" type="TestUnitRunConfigurationType" factoryName="Test::Unit/Shoulda/Minitest" temporary="true">
       <predefined_log_file id="RUBY_TESTUNIT" enabled="true" />
       <module name="VideoStoreAPI" />
@@ -332,35 +350,6 @@
       <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_SCRIPT_PATH" VALUE="$MODULE_DIR$/test/models/customer_test.rb" />
       <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_FILE_MASK" VALUE="" />
       <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_METHOD_NAME" VALUE="/test_\d+_can have many movies through rentals/" />
-      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_TEST_TYPE" VALUE="TEST_METHOD" />
-      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="DRB" VALUE="false" />
-      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="ZEUS" VALUE="false" />
-      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="SPRING" VALUE="false" />
-      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="RUNNER_OPTIONS" VALUE="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="can have many rentals (customer_test.rb): VideoStoreAPI" type="TestUnitRunConfigurationType" factoryName="Test::Unit/Shoulda/Minitest" temporary="true">
-      <predefined_log_file id="RUBY_TESTUNIT" enabled="true" />
-      <module name="VideoStoreAPI" />
-      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="RUBY_ARGS" VALUE="-Ilib:test" />
-      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="WORK DIR" VALUE="$MODULE_DIR$" />
-      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="SHOULD_USE_SDK" VALUE="false" />
-      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="ALTERN_SDK_NAME" VALUE="" />
-      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="myPassParentEnvs" VALUE="true" />
-      <envs>
-        <env name="JRUBY_OPTS" value="-X+O" />
-      </envs>
-      <EXTENSION ID="BundlerRunConfigurationExtension" bundleExecEnabled="true" />
-      <EXTENSION ID="JRubyRunConfigurationExtension" NailgunExecEnabled="false" />
-      <EXTENSION ID="RubyCoverageRunConfigurationExtension" track_test_folders="true" runner="rcov">
-        <COVERAGE_PATTERN ENABLED="true">
-          <PATTERN REGEXPS="/.rvm/" INCLUDED="false" />
-        </COVERAGE_PATTERN>
-      </EXTENSION>
-      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TESTS_FOLDER_PATH" VALUE="" />
-      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_SCRIPT_PATH" VALUE="$MODULE_DIR$/test/models/customer_test.rb" />
-      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_FILE_MASK" VALUE="" />
-      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_METHOD_NAME" VALUE="/test_\d+_can have many rentals/" />
       <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_TEST_TYPE" VALUE="TEST_METHOD" />
       <RTEST_RUN_CONFIG_SETTINGS_ID NAME="DRB" VALUE="false" />
       <RTEST_RUN_CONFIG_SETTINGS_ID NAME="ZEUS" VALUE="false" />
@@ -455,20 +444,49 @@
       <RTEST_RUN_CONFIG_SETTINGS_ID NAME="RUNNER_OPTIONS" VALUE="" />
       <method v="2" />
     </configuration>
+    <configuration name="should get index (movies_controller_test.rb): VideoStoreAPI" type="TestUnitRunConfigurationType" factoryName="Test::Unit/Shoulda/Minitest" temporary="true">
+      <predefined_log_file id="RUBY_TESTUNIT" enabled="true" />
+      <module name="VideoStoreAPI" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="RUBY_ARGS" VALUE="-Ilib:test" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="WORK DIR" VALUE="$MODULE_DIR$" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="SHOULD_USE_SDK" VALUE="false" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="ALTERN_SDK_NAME" VALUE="" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="myPassParentEnvs" VALUE="true" />
+      <envs>
+        <env name="JRUBY_OPTS" value="-X+O" />
+      </envs>
+      <EXTENSION ID="BundlerRunConfigurationExtension" bundleExecEnabled="true" />
+      <EXTENSION ID="JRubyRunConfigurationExtension" NailgunExecEnabled="false" />
+      <EXTENSION ID="RubyCoverageRunConfigurationExtension" track_test_folders="true" runner="rcov">
+        <COVERAGE_PATTERN ENABLED="true">
+          <PATTERN REGEXPS="/.rvm/" INCLUDED="false" />
+        </COVERAGE_PATTERN>
+      </EXTENSION>
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TESTS_FOLDER_PATH" VALUE="" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_SCRIPT_PATH" VALUE="$MODULE_DIR$/test/controllers/movies_controller_test.rb" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_FILE_MASK" VALUE="" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_METHOD_NAME" VALUE="/test_\d+_should get index/" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_TEST_TYPE" VALUE="TEST_METHOD" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="DRB" VALUE="false" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="ZEUS" VALUE="false" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="SPRING" VALUE="false" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="RUNNER_OPTIONS" VALUE="" />
+      <method v="2" />
+    </configuration>
     <list>
-      <item itemvalue="Test::Unit/Shoulda/Minitest.can have many rentals (customer_test.rb): VideoStoreAPI" />
       <item itemvalue="Test::Unit/Shoulda/Minitest.has many movies through rentals (customer_test.rb): VideoStoreAPI" />
       <item itemvalue="Test::Unit/Shoulda/Minitest.can have many movies through rentals (customer_test.rb): VideoStoreAPI" />
       <item itemvalue="Test::Unit/Shoulda/Minitest.has many rentals (movie_test.rb): VideoStoreAPI" />
       <item itemvalue="Test::Unit/Shoulda/Minitest.has many customers through rental (movie_test.rb): VideoStoreAPI" />
+      <item itemvalue="Test::Unit/Shoulda/Minitest.should get index (movies_controller_test.rb): VideoStoreAPI" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Test::Unit/Shoulda/Minitest.should get index (movies_controller_test.rb): VideoStoreAPI" />
         <item itemvalue="Test::Unit/Shoulda/Minitest.has many customers through rental (movie_test.rb): VideoStoreAPI" />
         <item itemvalue="Test::Unit/Shoulda/Minitest.has many rentals (movie_test.rb): VideoStoreAPI" />
         <item itemvalue="Test::Unit/Shoulda/Minitest.can have many movies through rentals (customer_test.rb): VideoStoreAPI" />
         <item itemvalue="Test::Unit/Shoulda/Minitest.has many movies through rentals (customer_test.rb): VideoStoreAPI" />
-        <item itemvalue="Test::Unit/Shoulda/Minitest.can have many rentals (customer_test.rb): VideoStoreAPI" />
       </list>
     </recent_temporary>
   </component>
@@ -491,12 +509,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="can_have_many_rentals_(customer_test_rb)__VideoStoreAPI - 2018.11.05 at 20h 19m 06s.xml">
-      <configuration name="can have many rentals (customer_test.rb): VideoStoreAPI" configurationId="TestUnitRunConfigurationType" />
-    </history-entry>
-    <history-entry file="has_many_movies_through_rentals_(customer_test_rb)__VideoStoreAPI - 2018.11.05 at 20h 20m 05s.xml">
-      <configuration name="has many movies through rentals (customer_test.rb): VideoStoreAPI" configurationId="TestUnitRunConfigurationType" />
-    </history-entry>
     <history-entry file="has_many_movies_through_rentals_(customer_test_rb)__VideoStoreAPI - 2018.11.05 at 20h 20m 47s.xml">
       <configuration name="has many movies through rentals (customer_test.rb): VideoStoreAPI" configurationId="TestUnitRunConfigurationType" />
     </history-entry>
@@ -521,21 +533,27 @@
     <history-entry file="has_many_customers_through_rental_(movie_test_rb)__VideoStoreAPI - 2018.11.05 at 20h 37m 41s.xml">
       <configuration name="has many customers through rental (movie_test.rb): VideoStoreAPI" configurationId="TestUnitRunConfigurationType" />
     </history-entry>
+    <history-entry file="should_get_index_(movies_controller_test_rb)__VideoStoreAPI - 2018.11.06 at 13h 15m 02s.xml">
+      <configuration name="should get index (movies_controller_test.rb): VideoStoreAPI" configurationId="TestUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="should_get_index_(movies_controller_test_rb)__VideoStoreAPI - 2018.11.06 at 13h 16m 28s.xml">
+      <configuration name="should get index (movies_controller_test.rb): VideoStoreAPI" configurationId="TestUnitRunConfigurationType" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17156000" />
+    <option name="totallyTimeSpent" value="18910000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="720" height="877" extended-state="0" />
+    <frame x="0" y="23" width="1368" height="877" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.3820059" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1764706" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="0" weight="0.19843137" />
       <window_info anchor="bottom" id="Message" order="1" />
-      <window_info anchor="bottom" id="Find" order="2" />
-      <window_info anchor="bottom" id="Run" order="3" weight="0.2698039" />
+      <window_info anchor="bottom" id="Find" order="2" weight="0.3294271" />
+      <window_info active="true" anchor="bottom" id="Run" order="3" visible="true" weight="0.26953125" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.3997396" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
@@ -543,7 +561,7 @@
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="10" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.53776044" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.4934896" />
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -703,8 +721,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/routes.rb">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/db/schema.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="32" column="23" lean-forward="true" selection-start-line="32" selection-start-column="23" selection-end-line="32" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/customers_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/config/initializers/rabl_config.rb">
       <provider selected="true" editor-type-id="text-editor">
@@ -713,12 +742,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/movies/index.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="1" column="1" selection-start-line="1" selection-start-column="1" selection-end-line="1" selection-end-column="1" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/config/routes.rb">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/rentals_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
@@ -727,45 +752,86 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/movies/show.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/movies_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
+        <state relative-caret-position="200">
           <caret line="10" column="23" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/db/schema.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/movies/index.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="32" column="23" lean-forward="true" selection-start-line="32" selection-start-column="23" selection-end-line="32" selection-end-column="23" />
+        <state relative-caret-position="20">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/movies/show.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/customers/index.html.erb">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/rentals/index.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="61" lean-forward="true" selection-start-column="61" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/rentals/index.json.rabl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/rentals/show.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="67" selection-end-column="84" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/rentals/show.json.rabl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="31" selection-start-column="31" selection-end-column="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/movies/index.json.rabl">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="80">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="6" />
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/movies/show.json.rabl">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="3" column="25" selection-start-line="3" selection-start-column="25" selection-end-line="3" selection-end-column="25" />
+        <state relative-caret-position="20">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/customers_controller.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/customers/index.json.rabl">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/controllers/customers_controller_test.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+        <state relative-caret-position="100">
+          <caret line="5" column="8" selection-start-line="3" selection-start-column="2" selection-end-line="16" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/controllers/movies_controller_test.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="18" column="4" selection-start-line="18" selection-start-column="6" selection-end-line="32" selection-end-column="9" />
         </state>
       </provider>
     </entry>
