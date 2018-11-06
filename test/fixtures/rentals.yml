@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+rental1:
   checkout_date: 2018-11-05
   checkin_date: 2018-11-05
   due_date: 2018-11-05
 
-two:
+rental2:
   checkout_date: 2018-11-05
   checkin_date: 2018-11-05
   due_date: 2018-11-05

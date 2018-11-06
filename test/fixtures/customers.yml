@@ -1,19 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+customer1:
   name: MyString
   registered_at: 2018-11-05 12:32:19
-  address: 
+  address: MyString
   state: MyString
   postal_code: MyString
   phone: MyString
-  movies_out_count: 1
+  movies_out_count: 0
 
-two:
+customer2:
   name: MyString
   registered_at: 2018-11-05 12:32:19
-  address: 
+  address: MyString
   state: MyString
   postal_code: MyString
   phone: MyString
-  movies_out_count: 1
+  movies_out_count: 0
