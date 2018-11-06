@@ -22,7 +22,7 @@ gem 'puma', '~> 3.11'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
+gem 'rabl'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
@@ -52,5 +52,10 @@ end
 group :test do
   gem 'minitest-rails'
   gem 'minitest-reporters'
+<<<<<<< HEAD
   gem 'simplecov', require: false
+=======
+  # gem 'shoulda', '~> 3.5'
+  # gem 'shoulda-matchers', '~> 2.0'
+>>>>>>> test/model_relationships
 end

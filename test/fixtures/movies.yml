@@ -13,3 +13,11 @@ movie_in:
   release_date: 2018-11-05
   inventory: 1
   inventory_available: 1
+
+
+movie_out3:
+  title: MyString
+  overview: MyString
+  release_date: 2018-11-05
+  inventory: 5
+  inventory_available: 3

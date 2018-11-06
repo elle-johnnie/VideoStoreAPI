@@ -13,3 +13,17 @@ rental_in:
   due_date: 2018-11-10
   movie: movie_in
   customer: customer_in
+
+rental_out2:
+  checkout_date: 2018-11-05
+  checkin_date:
+  due_date: 2018-11-10
+  movie: movie_out3
+  customer: customer_out
+
+rental_out3:
+  checkout_date: 2018-11-05
+  checkin_date:
+  due_date: 2018-11-10
+  movie: movie_out3
+  customer: customer_out
