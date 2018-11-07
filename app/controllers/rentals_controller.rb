@@ -16,7 +16,10 @@ class RentalsController < ApplicationController
   # | `customer_id` | integer             | ID of the customer checking out this film
   # | `movie_id`    | integer | ID of the movie to be checked out
   def check_out
-
+    @rental = Rental.new(rental_params)
+    unless @rental.checkout_data && @rental.save
+      render json: {ok: false, cause: "validation errors", errors: @rental.errors}, status: :bad_request
+    end
   end
 
   #### `POST /rentals/check-in`
@@ -29,6 +32,10 @@ class RentalsController < ApplicationController
   # | `customer_id` | integer  | ID of the customer checking in this film
   # | `movie_id`    | integer | ID of the movie to be checked in
   def check_in
+    @rental = Rental.find_by(movie_id: params[:movie_id], customer_id: params[:customer_id])
+    unless @rental.checkin_data && @rental.save
+      render json: {ok: false, cause: "validation errors", errors: @rental.errors}, status: :bad_request
+    end
 
   end
 
