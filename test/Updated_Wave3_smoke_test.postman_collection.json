@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "0e4e765d-e505-4cdd-a6e0-c32f8bcb8e92",
+		"_postman_id": "a7b77970-2768-4f27-a4fc-12c0e2696820",
 		"name": "VideoStoreAPI Wave 3",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -138,7 +138,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"type": "text/javascript",
+						"id": "67d129fd-ed85-4786-8b1b-650f18893dcb",
 						"exec": [
 							"// Check headers",
 							"tests[\"Status code is 200\"] = responseCode.code === 200;",
@@ -156,11 +156,12 @@
 							"tests[\"Movie has overview\"] = \"overview\" in movie;",
 							"tests[\"Movie has release_date\"] = \"release_date\" in movie;",
 							"tests[\"Movie has inventory\"] = \"inventory\" in movie;",
-							"tests[\"Movie has inventory_available\"] = \"inventory_available\" in movie;",
+							"tests[\"Movie has available_inventory\"] = \"inventory_available\" in movie;",
 							"",
 							"// Save available inventory for later",
 							"postman.setEnvironmentVariable(\"movie_ai\", movie.inventory_available);"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -290,7 +291,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"type": "text/javascript",
+						"id": "df7072ff-1b21-4baf-93fb-63047430d01d",
 						"exec": [
 							"// Check headers",
 							"tests[\"Status code is 200\"] = responseCode.code === 200;",
@@ -305,7 +306,8 @@
 							"",
 							"var expected = Number(postman.getEnvironmentVariable(\"movie_ai\")) - 1;",
 							"tests[\"Movie inventory_available decreased\"] = movie.inventory_available === expected;"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -439,7 +441,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"type": "text/javascript",
+						"id": "26502d5c-bc4f-4358-bb1b-256e26830427",
 						"exec": [
 							"// Check headers",
 							"tests[\"Status code is 200\"] = responseCode.code === 200;",
@@ -454,7 +456,8 @@
 							"",
 							"var expected = Number(postman.getEnvironmentVariable(\"movie_ai\"));",
 							"tests[\"Movie inventory_available increased\"] = movie.inventory_available === expected;"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
