@@ -32,10 +32,12 @@ class RentalsController < ApplicationController
   # | `customer_id` | integer  | ID of the customer checking in this film
   # | `movie_id`    | integer | ID of the movie to be checked in
   def check_in
-    @rental = Rental.find_by(movie_id: params[:movie_id], customer_id: params[:customer_id])
+    @rental = Rental.find_by(movie_id: params[:movie_id], customer_id: params[:customer_id], checkin_date: nil)
+    # binding.pry
     unless @rental.checkin_data && @rental.save
       render json: {ok: false, cause: "validation errors", errors: @rental.errors}, status: :bad_request
     end
+
 
   end
 

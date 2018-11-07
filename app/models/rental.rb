@@ -24,6 +24,7 @@ class Rental < ApplicationRecord
       # self.save
       return self
     else
+      self.errors[:movie_id] << "all copies are currently checked out"
       return nil
     end
   end
