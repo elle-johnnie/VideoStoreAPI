@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "0e4e765d-e505-4cdd-a6e0-c32f8bcb8e92",
-		"name": "VideoStoreAPI Wave 3",
+		"_postman_id": "b1841628-deeb-4959-8931-1de7a30515c4",
+		"name": "VideoStoreAPI Wave 2",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -99,14 +99,17 @@
 							"postman.setEnvironmentVariable(\"movie_id\", jsonData[0].id);",
 							"",
 							"// Check required fields",
-							"var hasTitle = true;",
-							"var hasReleaseDate = true;",
+							"let hasId = true;",
+							"let hasTitle = true;",
+							"let hasReleaseDate = true;",
 							"",
-							"jsonData.forEach(function(customer) {",
-							"  hasTitle = hasTitle && \"title\" in customer;",
-							"  hasReleaseDate = hasReleaseDate && \"release_date\" in customer;",
+							"jsonData.forEach((movie) => {",
+							"  hasId = hasId && \"id\" in movie;",
+							"  hasTitle = hasTitle && \"title\" in movie;",
+							"  hasReleaseDate = hasReleaseDate && \"release_date\" in movie;",
 							"});",
 							"",
+							"tests[\"All movies have id\"] = hasId;",
 							"tests[\"All movies have title\"] = hasTitle;",
 							"tests[\"All movies have release_date\"] = hasReleaseDate;"
 						]
@@ -133,12 +136,12 @@
 			"response": []
 		},
 		{
-			"name": "Show Movie",
+			"name": "Show Movie from List",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"type": "text/javascript",
+						"id": "69e67d62-d1b7-4924-9760-e573029a1cb8",
 						"exec": [
 							"// Check headers",
 							"tests[\"Status code is 200\"] = responseCode.code === 200;",
@@ -156,11 +159,12 @@
 							"tests[\"Movie has overview\"] = \"overview\" in movie;",
 							"tests[\"Movie has release_date\"] = \"release_date\" in movie;",
 							"tests[\"Movie has inventory\"] = \"inventory\" in movie;",
-							"tests[\"Movie has available_inventory\"] = \"available_inventory\" in movie;",
+							"tests[\"Movie has inventory_available\"] = \"inventory_available\" in movie;",
 							"",
 							"// Save available inventory for later",
-							"postman.setEnvironmentVariable(\"movie_ai\", movie.available_inventory);"
-						]
+							"postman.setEnvironmentVariable(\"movie_ai\", movie.inventory_available);"
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -185,25 +189,41 @@
 			"response": []
 		},
 		{
-			"name": "Check Out Movie",
+			"name": "Create Movie",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "f58b2427-e72e-4c76-a830-f714e65942be",
 						"type": "text/javascript",
 						"exec": [
-							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var contentType = postman.getResponseHeader(\"Content-Type\");",
+							"tests[\"Content-Type is present\"] = contentType;",
+							"tests[\"Content-Type is application/json\"] = contentType.has('application/json');",
+							"",
+							"// Check data format",
+							"var response = JSON.parse(responseBody);",
+							"tests[\"Data is not an array\"] = !Array.isArray(response);",
+							"",
+							"// Check required fields",
+							"tests[\"Response has id\"] = \"id\" in response;",
+							"",
+							"// Save movie ID for the next test",
+							"pm.environment.set(\"created_movie_id\", response[\"id\"]);"
 						]
 					}
 				},
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "decbbae7-c4e7-40ad-852d-e682814daac8",
 						"type": "text/javascript",
 						"exec": [
-							""
+							"// Generate a unique title for this movie, so that multiple runs don't conflict",
+							"const uniqueId = Math.random().toString(36).substring(2) ",
+							"               + (new Date()).getTime().toString(36);",
+							"",
+							"pm.environment.set(\"movie_title\", `test_movie_${uniqueId}`);"
 						]
 					}
 				}
@@ -213,84 +233,53 @@
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json"
+						"value": "application/x-www-form-urlencoded"
 					}
 				],
 				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"movie_id\": {{movie_id}},\n\t\"customer_id\": {{customer_id}}\n}"
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "{{movie_title}}",
+							"type": "text"
+						},
+						{
+							"key": "overview",
+							"value": "This movie was created by the Postman smoke tests.",
+							"type": "text"
+						},
+						{
+							"key": "release_date",
+							"value": "1990-01-01",
+							"type": "text"
+						},
+						{
+							"key": "inventory",
+							"value": "5",
+							"type": "text"
+						}
+					]
 				},
 				"url": {
-					"raw": "{{url}}/rentals/check-out",
+					"raw": "{{url}}/movies",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
-						"rentals",
-						"check-out"
+						"movies"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Customer Check Out Count Increased",
+			"name": "Show Created Movie",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"type": "text/javascript",
-						"exec": [
-							"// Check headers",
-							"tests[\"Status code is 200\"] = responseCode.code === 200;",
-							"",
-							"var contentType = postman.getResponseHeader(\"Content-Type\");",
-							"tests[\"Content-Type is present\"] = contentType;",
-							"tests[\"Content-Type is application/json\"] = contentType.has('application/json');",
-							"",
-							"// Extract the customer we're interested in",
-							"var customerList = JSON.parse(responseBody);",
-							"tests[\"Data is an array\"] = Array.isArray(customerList);",
-							"",
-							"var customerId = postman.getEnvironmentVariable(\"customer_id\");",
-							"customerList = customerList.filter(function(c) { return c.id == customerId });",
-							"",
-							"tests[\"Sent back expected customer\"] = customerList.length == 1;",
-							"",
-							"// Check that the mcoc has increased",
-							"var expected = Number(postman.getEnvironmentVariable(\"customer_mcoc\")) + 1;",
-							"tests[\"Customer's movie check out count increased\"] = customerList[0].movies_checked_out_count === expected;",
-							""
-						]
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{url}}/customers",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"customers"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Movie Available Inventory Decreased",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
+						"id": "32384c3b-78bd-41fe-a7e8-5d8492fe0e10",
 						"exec": [
 							"// Check headers",
 							"tests[\"Status code is 200\"] = responseCode.code === 200;",
@@ -303,9 +292,15 @@
 							"var movie = JSON.parse(responseBody);",
 							"tests[\"Data is not an array\"] = !Array.isArray(movie);",
 							"",
-							"var expected = Number(postman.getEnvironmentVariable(\"movie_ai\")) - 1;",
-							"tests[\"Movie available_inventory decreased\"] = movie.available_inventory === expected;"
-						]
+							"// Check required fields",
+							"tests[\"Movie has title\"] = \"title\" in movie;",
+							"tests[\"Movie title matches POST data\"] = movie[\"title\"] == pm.environment.get(\"movie_title\");",
+							"tests[\"Movie has overview\"] = \"overview\" in movie;",
+							"tests[\"Movie has release_date\"] = \"release_date\" in movie;",
+							"tests[\"Movie has inventory\"] = \"inventory\" in movie;",
+							"tests[\"Movie has inventory_available\"] = \"inventory_available\" in movie;"
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -317,162 +312,13 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{url}}/movies/{{movie_id}}",
+					"raw": "{{url}}/movies/{{created_movie_id}}",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"movies",
-						"{{movie_id}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Check In Movie",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							"tests[\"Status code is 200\"] = responseCode.code === 200;"
-						]
-					}
-				},
-				{
-					"listen": "prerequest",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							"var today = new Date();",
-							"",
-							"// Get 1 week from today. Works at the end of the month too.",
-							"var nextWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 7);",
-							"",
-							"// toDateString produces \"Wed Jul 28 1993\", which fortunately Rails is able to parse",
-							"postman.setEnvironmentVariable(\"future_due_date\", nextWeek.toDateString());"
-						]
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"customer_id\": {{customer_id}},\n\t\"movie_id\": {{movie_id}}\n}"
-				},
-				"url": {
-					"raw": "{{url}}/rentals/check-in",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"rentals",
-						"check-in"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Customer Check Out Count Decreased",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							"// Check headers",
-							"tests[\"Status code is 200\"] = responseCode.code === 200;",
-							"",
-							"var contentType = postman.getResponseHeader(\"Content-Type\");",
-							"tests[\"Content-Type is present\"] = contentType;",
-							"tests[\"Content-Type is application/json\"] = contentType.has('application/json');",
-							"",
-							"// Extract the customer we're interested in",
-							"var customerList = JSON.parse(responseBody);",
-							"tests[\"Data is an array\"] = Array.isArray(customerList);",
-							"",
-							"var customerId = postman.getEnvironmentVariable(\"customer_id\");",
-							"customerList = customerList.filter(function(c) { return c.id == customerId });",
-							"",
-							"tests[\"Sent back expected customer\"] = customerList.length == 1;",
-							"",
-							"// Check that the mcoc has decreased",
-							"var expected = Number(postman.getEnvironmentVariable(\"customer_mcoc\"));",
-							"tests[\"Customer's movie check out count decreased\"] = customerList[0].movies_checked_out_count === expected;",
-							""
-						]
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{url}}/customers",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"customers"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Movie Available Inventory Increased",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							"// Check headers",
-							"tests[\"Status code is 200\"] = responseCode.code === 200;",
-							"",
-							"var contentType = postman.getResponseHeader(\"Content-Type\");",
-							"tests[\"Content-Type is present\"] = contentType;",
-							"tests[\"Content-Type is application/json\"] = contentType.has('application/json');",
-							"",
-							"// Check data format",
-							"var movie = JSON.parse(responseBody);",
-							"tests[\"Data is not an array\"] = !Array.isArray(movie);",
-							"",
-							"var expected = Number(postman.getEnvironmentVariable(\"movie_ai\"));",
-							"tests[\"Movie available_inventory increased\"] = movie.available_inventory === expected;"
-						]
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{url}}/movies/{{movie_id}}",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"movies",
-						"{{movie_id}}"
+						"{{created_movie_id}}"
 					]
 				}
 			},
