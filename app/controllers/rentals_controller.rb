@@ -1,7 +1,7 @@
 class RentalsController < ApplicationController
   #### `GET /zomg`
   def zomg
-    render json: {message: "it_works"}
+    render json: {message: "it works"}
   end
 
   #### `POST /rentals/check-out`

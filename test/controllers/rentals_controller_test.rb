@@ -8,6 +8,12 @@ describe RentalsController do
    }
   }
 
+  it 'zomg, a success message!' do
+    get zomg_path, as: :json
+    value(response).must_be :successful?
+    expect(JSON.parse(response.body)["message"]).must_equal "it works"
+  end
+
   it 'can checkout a movie' do
    # POST /rentals/check_out
    fields = %w(id movie_id customer_id due_date checkout_date checkin_date).sort

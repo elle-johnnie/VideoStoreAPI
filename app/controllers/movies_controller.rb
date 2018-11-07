@@ -29,6 +29,7 @@ class MoviesController < ApplicationController
   # - `inventory` (total)
   # - `available_inventory` (not currently checked-out to a customer)
   # - This will be the same as `inventory` unless you've completed the optional endpoints.
+
   def show
     @movie = Movie.find_by(id: params[:id])
     render json: {ok: false, cause: :not_found}, status: :not_found if @movie.nil?
@@ -56,6 +57,21 @@ class MoviesController < ApplicationController
     end
   end
 
+  #### `GET /rentals/overdue`
+  # List all customers with overdue movies
+  #
+  # Fields to return:
+  # - `movie_id`
+  # - `title`
+  # - `customer_id`
+  # - `name`
+  # - `postal_code`
+  # - `checkout_date`
+  # - `due_date`
+
+  def overdue
+  end
+
   private
 
   def movie_params
@@ -63,7 +79,6 @@ class MoviesController < ApplicationController
   end
 
 end
-
 
 
 
