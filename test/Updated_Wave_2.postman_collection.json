@@ -1,0 +1,328 @@
+{
+	"info": {
+		"_postman_id": "b1841628-deeb-4959-8931-1de7a30515c4",
+		"name": "VideoStoreAPI Wave 2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "List Customers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// Check headers",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var contentType = postman.getResponseHeader(\"Content-Type\");",
+							"tests[\"Content-Type is present\"] = contentType;",
+							"tests[\"Content-Type is application/json\"] = contentType.has('application/json');",
+							"",
+							"// Check data format",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Data is an array\"] = Array.isArray(jsonData);",
+							"tests[\"Many customers were sent\"] = jsonData.length > 0;",
+							"",
+							"// Save info on the first customer",
+							"postman.setEnvironmentVariable(\"customer_id\", jsonData[0].id);",
+							"postman.setEnvironmentVariable(\"customer_mcoc\", jsonData[0].movies_checked_out_count);",
+							"",
+							"// Check required fields",
+							"var hasId = true;",
+							"var hasName = true;",
+							"var hasRegisteredAt = true;",
+							"var hasPostalCode = true;",
+							"var hasPhone = true;",
+							"var hasMoviesCheckedOutCount = true;",
+							"",
+							"jsonData.forEach(function(customer) {",
+							"  hasId = hasId && \"id\" in customer;",
+							"  hasName = hasName && \"name\" in customer;",
+							"  hasRegisteredAt = hasRegisteredAt && \"registered_at\" in customer;",
+							"  hasPostalCode = hasPostalCode && \"postal_code\" in customer;",
+							"  hasPhone = hasPhone && \"phone\" in customer;",
+							"  hasMoviesCheckedOutCount = hasMoviesCheckedOutCount && \"movies_checked_out_count\" in customer;",
+							"});",
+							"",
+							"tests[\"All customers have id\"] = hasId;",
+							"tests[\"All customers have name\"] = hasName;",
+							"tests[\"All customers have registered_at\"] = hasRegisteredAt;",
+							"tests[\"All customers have postal_code\"] = hasPostalCode;",
+							"tests[\"All customers have phone\"] = hasPhone;",
+							"tests[\"All customers have movies_checked_out_count\"] = hasMoviesCheckedOutCount;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/customers",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Movies",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// Check headers",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var contentType = postman.getResponseHeader(\"Content-Type\");",
+							"tests[\"Content-Type is present\"] = contentType;",
+							"tests[\"Content-Type is application/json\"] = contentType.has('application/json');",
+							"",
+							"// Check data format",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Data is an array\"] = Array.isArray(jsonData);",
+							"tests[\"Many movies were sent\"] = jsonData.length > 0;",
+							"",
+							"// Save info on the first movie",
+							"postman.setEnvironmentVariable(\"movie_id\", jsonData[0].id);",
+							"",
+							"// Check required fields",
+							"let hasId = true;",
+							"let hasTitle = true;",
+							"let hasReleaseDate = true;",
+							"",
+							"jsonData.forEach((movie) => {",
+							"  hasId = hasId && \"id\" in movie;",
+							"  hasTitle = hasTitle && \"title\" in movie;",
+							"  hasReleaseDate = hasReleaseDate && \"release_date\" in movie;",
+							"});",
+							"",
+							"tests[\"All movies have id\"] = hasId;",
+							"tests[\"All movies have title\"] = hasTitle;",
+							"tests[\"All movies have release_date\"] = hasReleaseDate;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/movies",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show Movie from List",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "69e67d62-d1b7-4924-9760-e573029a1cb8",
+						"exec": [
+							"// Check headers",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var contentType = postman.getResponseHeader(\"Content-Type\");",
+							"tests[\"Content-Type is present\"] = contentType;",
+							"tests[\"Content-Type is application/json\"] = contentType.has('application/json');",
+							"",
+							"// Check data format",
+							"var movie = JSON.parse(responseBody);",
+							"tests[\"Data is not an array\"] = !Array.isArray(movie);",
+							"",
+							"// Check required fields",
+							"tests[\"Movie has title\"] = \"title\" in movie;",
+							"tests[\"Movie has overview\"] = \"overview\" in movie;",
+							"tests[\"Movie has release_date\"] = \"release_date\" in movie;",
+							"tests[\"Movie has inventory\"] = \"inventory\" in movie;",
+							"tests[\"Movie has inventory_available\"] = \"inventory_available\" in movie;",
+							"",
+							"// Save available inventory for later",
+							"postman.setEnvironmentVariable(\"movie_ai\", movie.available_inventory);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/movies/{{movie_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"movies",
+						"{{movie_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Movie",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var contentType = postman.getResponseHeader(\"Content-Type\");",
+							"tests[\"Content-Type is present\"] = contentType;",
+							"tests[\"Content-Type is application/json\"] = contentType.has('application/json');",
+							"",
+							"// Check data format",
+							"var response = JSON.parse(responseBody);",
+							"tests[\"Data is not an array\"] = !Array.isArray(response);",
+							"",
+							"// Check required fields",
+							"tests[\"Response has id\"] = \"id\" in response;",
+							"",
+							"// Save movie ID for the next test",
+							"pm.environment.set(\"created_movie_id\", response[\"id\"]);"
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"// Generate a unique title for this movie, so that multiple runs don't conflict",
+							"const uniqueId = Math.random().toString(36).substring(2) ",
+							"               + (new Date()).getTime().toString(36);",
+							"",
+							"pm.environment.set(\"movie_title\", `test_movie_${uniqueId}`);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "{{movie_title}}",
+							"type": "text"
+						},
+						{
+							"key": "overview",
+							"value": "This movie was created by the Postman smoke tests.",
+							"type": "text"
+						},
+						{
+							"key": "release_date",
+							"value": "1990-01-01",
+							"type": "text"
+						},
+						{
+							"key": "inventory",
+							"value": "5",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/movies",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show Created Movie",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "32384c3b-78bd-41fe-a7e8-5d8492fe0e10",
+						"exec": [
+							"// Check headers",
+							"tests[\"Status code is 200\"] = responseCode.code === 200;",
+							"",
+							"var contentType = postman.getResponseHeader(\"Content-Type\");",
+							"tests[\"Content-Type is present\"] = contentType;",
+							"tests[\"Content-Type is application/json\"] = contentType.has('application/json');",
+							"",
+							"// Check data format",
+							"var movie = JSON.parse(responseBody);",
+							"tests[\"Data is not an array\"] = !Array.isArray(movie);",
+							"",
+							"// Check required fields",
+							"tests[\"Movie has title\"] = \"title\" in movie;",
+							"tests[\"Movie title matches POST data\"] = movie[\"title\"] == pm.environment.get(\"movie_title\");",
+							"tests[\"Movie has overview\"] = \"overview\" in movie;",
+							"tests[\"Movie has release_date\"] = \"release_date\" in movie;",
+							"tests[\"Movie has inventory\"] = \"inventory\" in movie;",
+							"tests[\"Movie has inventory_available\"] = \"inventory_available\" in movie;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/movies/{{created_movie_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"movies",
+						"{{created_movie_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
