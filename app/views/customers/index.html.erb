@@ -1,0 +1,8 @@
+<!-- SJL: This is for testing. Don't forget to delete this file before production. -->
+<h1><%= params[:sort] %></h1>
+<ol>
+  <li><%= CGI.parse(request.query_string) %></li>
+  <li><%= CGI.parse(request.query_string)["sort"] %></li>
+  <li><%= CGI.parse(request.query_string)["sort"].first.class %></li>
+  <li><%= controller_name.class %></li>
+</ol>

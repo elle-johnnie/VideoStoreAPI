@@ -1,23 +1,22 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 movie_out:
-  title: MyString
+  title: Actually Love
   overview: MyString
   release_date: 2018-11-05
   inventory: 2
   inventory_available: 1
 
 movie_in:
-  title: MyString
+  title: Bend It Like It Like That
   overview: MyString
-  release_date: 2018-11-05
+  release_date: 1991-11-05
   inventory: 1
   inventory_available: 1
 
-
 movie_out3:
-  title: MyString
+  title: CATTACA
   overview: MyString
-  release_date: 2018-11-05
+  release_date: 1991-11-05
   inventory: 5
   inventory_available: 3

@@ -1,17 +1,33 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 customer_in:
-  name: MyString
+  name: Ada Lovelace
   registered_at: 2018-11-05 12:32:19
   address:
   state: MyString
-  postal_code: MyString
-  phone: MyString
+  postal_code: 22222
+  phone: aphonenumber
 
 customer_out:
-  name: MyString
+  name: Ada Lovelace
   registered_at: 2018-11-05 12:32:19
   address:
   state: MyString
-  postal_code: MyString
+  postal_code: 11111
+  phone: MyString
+
+customer_tomorrow:
+  name: Ada Lovelace
+  registered_at: 2018-11-06 12:32:19
+  address:
+  state: MyString
+  postal_code: "00000"
+  phone: MyString
+
+customer_z:
+  name: Zipper Zigzag
+  registered_at: 1991-11-06 12:32:19
+  address:
+  state: MyString
+  postal_code: "00000"
   phone: MyString

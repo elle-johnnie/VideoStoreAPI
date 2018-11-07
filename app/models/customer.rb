@@ -1,6 +1,6 @@
-class Customer < ApplicationRecord  
+class Customer < ApplicationRecord
   # relationships
-  has_many :rentals
+  has_many :rentals, dependent: :nullify
   has_many :movies, :through => :rentals
 
   # validations

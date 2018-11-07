@@ -83,4 +83,54 @@ describe MoviesController do
     end
   end
 
+  describe 'get query params' do
+    let (:new_movie) { Movie.new(id: 1,
+                                 title: "movie_first",
+                                 overview: "watch me",
+                                 release_date: Date.today,
+                                 inventory: 5,
+                                 inventory_available: 0)
+                    }
+    describe 'sorter' do
+      it 'given a single valid sorter, it sorts Movies in ascending order' do
+        # valid: title, release_date
+        path = '/movies?sort=title'
+        get path, as: :json
+        body = JSON.parse(response.body)
+        expect(body.last["title"]).must_equal "CATTACA"
+      end
+
+      it 'defaults to id: :asc if the query is nil or an empty string' do
+        new_movie.save!
+        path = '/movies'
+        query_string = ["", "?sort=", "?", "sort="]
+        query_string.each do |query|
+           path << query
+           get path, as: :json
+           body = JSON.parse(response.body)
+           expect(body.first["title"]).must_equal "movie_first"
+        end
+      end
+
+      it 'will throw out invalid sorters and default to id' do
+        new_movie.save!
+        path = '/movies?sort='
+        query_string = ["bubble tea", "bubbletea", "overview", "inventory", "inventory_available"]
+        query_string.each do |query|
+           path << query
+           get path, as: :json
+           body = JSON.parse(response.body)
+           expect(body.first["title"]).must_equal "movie_first"
+         end
+      end
+
+      it 'given >1 valid sorters, it applies sorters left to right' do
+        path = '/movies?sort=release_date&sort=title'
+        get path, as: :json
+        body = JSON.parse(response.body)
+        expect(body[0]["title"]).must_equal "Bend It Like It Like That"
+        expect(body[1]["title"]).must_equal "CATTACA"
+      end
+    end
+  end
 end

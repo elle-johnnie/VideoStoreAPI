@@ -1,5 +1,4 @@
-class RentalsController < ApplicationController
-
+class RentalsController < ApplicationController  
   #### `GET /zomg`
   def zomg
     render json: {message: "it_works"}

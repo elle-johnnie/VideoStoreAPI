@@ -1,4 +1,5 @@
 class MoviesController < ApplicationController
+  before_action :get_query_params, only: [:index]
 
   #### `GET /movies`
   # List all movies
@@ -8,7 +9,12 @@ class MoviesController < ApplicationController
   # - `title`
   # - `release_date`
   def index
-    @movies = Movie.all
+    movies = Movie.all
+    @sorters.each do |sorter|
+      movies = movies.order(sorter => :asc) # asc is default - just being explicit
+    end
+
+    @movies = movies
   end
 
   #### `GET /movies/:id`
