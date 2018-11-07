@@ -29,7 +29,7 @@ describe MoviesController do
 
 
   describe 'show api' do
-    it 'returns an individual response' do
+    it 'returns an individual response with expected fields' do
       get movie_path(Movie.first.id), as: :json
       must_respond_with :success
       body = JSON.parse(response.body)
@@ -79,7 +79,7 @@ describe MoviesController do
       must_respond_with :bad_request
       expect(body["ok"]).must_equal false
       expect(body["cause"]).must_equal "validation errors"
-
+      expect(body["errors"].keys).must_include "title"
     end
   end
 

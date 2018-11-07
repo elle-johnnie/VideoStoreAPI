@@ -156,10 +156,10 @@
 							"tests[\"Movie has overview\"] = \"overview\" in movie;",
 							"tests[\"Movie has release_date\"] = \"release_date\" in movie;",
 							"tests[\"Movie has inventory\"] = \"inventory\" in movie;",
-							"tests[\"Movie has available_inventory\"] = \"available_inventory\" in movie;",
+							"tests[\"Movie has inventory_available\"] = \"inventory_available\" in movie;",
 							"",
 							"// Save available inventory for later",
-							"postman.setEnvironmentVariable(\"movie_ai\", movie.available_inventory);"
+							"postman.setEnvironmentVariable(\"movie_ai\", movie.inventory_available);"
 						]
 					}
 				}
@@ -304,7 +304,7 @@
 							"tests[\"Data is not an array\"] = !Array.isArray(movie);",
 							"",
 							"var expected = Number(postman.getEnvironmentVariable(\"movie_ai\")) - 1;",
-							"tests[\"Movie available_inventory decreased\"] = movie.available_inventory === expected;"
+							"tests[\"Movie inventory_available decreased\"] = movie.inventory_available === expected;"
 						]
 					}
 				}
@@ -453,7 +453,7 @@
 							"tests[\"Data is not an array\"] = !Array.isArray(movie);",
 							"",
 							"var expected = Number(postman.getEnvironmentVariable(\"movie_ai\"));",
-							"tests[\"Movie available_inventory increased\"] = movie.available_inventory === expected;"
+							"tests[\"Movie inventory_available increased\"] = movie.inventory_available === expected;"
 						]
 					}
 				}
