@@ -13,11 +13,6 @@ describe Movie do
       new_movie.valid?.must_equal true
     end
 
-    it "inventory will default to zero" do
-      new_movie.save
-      expect(new_movie.inventory_available).must_equal 0
-    end
-
     it "a movie cannot be created if any required field is not present" do
       fields = [:title, :overview, :release_date, :inventory]
       setters = [:title=, :overview=, :release_date=, :inventory=]
