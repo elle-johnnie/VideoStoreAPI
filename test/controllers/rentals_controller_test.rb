@@ -49,5 +49,21 @@ describe RentalsController do
    expect(body["checkin_date"]).must_equal Date.today.to_s
    expect(movie_inv_avail_end).must_equal movie_inv_avail_start + 1
   end
+
+  it "won't checkout a rental with garbage data" do
+    bad_rental = {
+        { customer_id: 1337,
+          movie_id: 1337}
+    }
+    expect do
+      post check_out_path, params: bad_rental, as: :json
+    end.wont_change 'Rental.count'
+
+    value(response).must_be :unsuccessful?
+  end
+
+  # it "won't checkin a rental with garbage data" do
+  #
+  # end
 end
 
