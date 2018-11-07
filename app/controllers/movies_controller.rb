@@ -1,5 +1,5 @@
 class MoviesController < ApplicationController
-  before_action :get_query_params, only: [:index]
+  before_action :get_query_params, only: [:index, :overdue]
 
   #### `GET /movies`
   # List all movies
