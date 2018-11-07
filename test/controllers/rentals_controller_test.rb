@@ -60,27 +60,23 @@ describe RentalsController do
     }
     it 'checking OUT a movie increases customer mcoc count by one' do
 
-      # ARRANGE: FIND CUSTOMER, CHECK START COUNT
-      # CUSTOMER CHECKS OUT A MOVIE
+      # START
       get customers_path, as: :json
       body = JSON.parse(response.body) # array of all customers
       body = body.select {|cust| cust["id"] == customer.id} # array of a single customer hash
       mcoc_start = body[0]["movies_checked_out_count"]
-
       expect(mcoc_start).must_equal 3 # just to be sure of our fixtures
 
+      # CHECKOUT
       post check_out_path, params: new_rental_params, as: :json
       value(response).must_be :successful?
 
-      # # ACT: FIND SAME CUSTOMER, CHECK END COUNT
+      # END
       get customers_path, as: :json
       body2 = JSON.parse(response.body) # array of all customers
-      body2.select {|cust| cust["id"] == customer.id} # array of a single customer hash
-
-      # # ASSERT: END COUNT = START COUNT + 1
+      body2 = body2.select {|cust| cust["id"] == customer.id} # array of a single customer hash
       mcoc_end = body2[0]["movies_checked_out_count"]
-      expect(mcoc_end).must_equal (mcoc_start + 1)
-      expect(mcoc_end).must_equal 4 # just to be sure again.
+      expect(mcoc_end).must_equal 4 # FAIL: expect 4, actual 0
     end
 
     it 'checking IN a movie decreases customer mcoc count by one' do
@@ -91,30 +87,73 @@ describe RentalsController do
       body = body.select {|cust| cust["id"] == customer.id} # array of a single customer hash
       mcoc_zero = body[0]["movies_checked_out_count"]
       expect(mcoc_zero).must_equal 3 # from fixtures
+      expect(Rental.count).must_equal 4
 
       # CHECK OUT
       post check_out_path, params: new_rental_params, as: :json
       value(response).must_be :successful?
+      expect(Rental.count).must_equal 5
 
       # BEFORE
       get customers_path, as: :json
       value(response).must_be :successful?
       body2 = JSON.parse(response.body) # array of all customers
-      body2.select {|cust| cust["id"] == customer.id}
+      body2 = body2.select {|cust| cust["id"] == customer.id}
       mcoc_before = body2[0]["movies_checked_out_count"]
       expect(mcoc_before).must_equal 4 # mcoc_zero + 1
 
       # CHECK IN
+      post check_in_path, params: new_rental_params, as: :json
+      value(response).must_be :successful?
+      expect(Rental.count).must_equal 5
+
+      # AFTER
+      get customers_path, as: :json
+      value(response).must_be :successful?
+      body3 = JSON.parse(response.body) # array of all customers
+      body3 = body3.select {|cust| cust["id"] == customer.id}
+      mcoc_end = body3[0]["movies_checked_out_count"]
+      expect(mcoc_end).must_equal 3 #mcoc_zero
+
+
+      ################################################
+      # TWO
+      ################################################
+
+      # ZERO
+      get customers_path, as: :json
+      value(response).must_be :successful?
+      body = JSON.parse(response.body) # array of all customers
+      body = body.select {|cust| cust["id"] == customer.id} # array of a single customer hash
+      mcoc_zero = body[0]["movies_checked_out_count"]
+      expect(mcoc_zero).must_equal 3 # from fixtures
+      expect(Rental.count).must_equal 5
+
+      # CHECK OUT
       post check_out_path, params: new_rental_params, as: :json
+      value(response).must_be :successful?
+      expect(Rental.count).must_equal 6
+
+      # BEFORE
+      get customers_path, as: :json
+      value(response).must_be :successful?
+      body2 = JSON.parse(response.body) # array of all customers
+      body2 = body2.select {|cust| cust["id"] == customer.id}
+      mcoc_before = body2[0]["movies_checked_out_count"]
+      expect(mcoc_before).must_equal 4 # mcoc_zero + 1
+
+      # CHECK IN
+      post check_in_path, params: new_rental_params, as: :json
       value(response).must_be :successful?
 
       # AFTER
       get customers_path, as: :json
       value(response).must_be :successful?
       body3 = JSON.parse(response.body) # array of all customers
-      body3.select {|cust| cust["id"] == customer.id}
+      body3 = body3.select {|cust| cust["id"] == customer.id}
       mcoc_end = body3[0]["movies_checked_out_count"]
-      expect(mcoc_end).must_equal 3 #mcoc_zero
+      expect(Rental.count).must_equal 6
+      expect(mcoc_end).must_equal 3 #mcoc_zero # FAIL: expect 3, actual 4
     end
   end
 end
