@@ -13,31 +13,56 @@ class Rental < ApplicationRecord
   end
 
   def checkout_data
-    movie_id = self[:movie_id]
-    rented = Movie.find_by(id: movie_id)
-    if rented.inventory_available > 0
-      rented.inventory_available -= 1
-      rented.save
+    if valid_movie? && valid_cust? && movie_available?
       self.checkout_date = Date.today
       self.due_date = Date.today + 7
       self.checkin_date = nil
       # self.save
       return self
-    else
-      self.errors[:movie_id] << "all copies are currently checked out"
-      return nil
     end
+    return self
   end
 
   def checkin_data
+    if valid_movie? && valid_cust?
+      movie_id = self[:movie_id]
+      rented = Movie.find_by(id: movie_id)
+      rented.inventory_available += 1
+      rented.save
+      self.checkin_date = Date.today
+      return self
+    end
+    return self
+
+  end
+
+  private
+
+  def valid_cust?
+    cust_id = self[:customer_id]
+    cust = Customer.find_by(id: cust_id)
+    if cust.nil?
+      errors.add(:messages, "customer id not in database")
+    end
+  end
+
+  def valid_movie?
     movie_id = self[:movie_id]
     rented = Movie.find_by(id: movie_id)
-    rented.inventory_available += 1
-    rented.save
-    self.checkin_date = Date.today
+    if rented.nil?
+      errors.add(:messages, "movie id not in database")
+    end
+  end
+
+  def movie_available?
+    movie_id = self[:movie_id]
+    rented = Movie.find_by(id: movie_id)
+    if rented.inventory_available > 0
+      rented.inventory_available -= 1
+      rented.save
+    else
+      errors.add(:messages,  "all copies are currently checked out")
+    end
   end
 end
 
-
-
-# Rental.new(checkout_date: Date.yesterday, due_date: Date.tomorrow, movie_id: 4, customer_id: 1)

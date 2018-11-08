@@ -156,4 +156,45 @@ describe RentalsController do
       expect(mcoc_end).must_equal 3 #mcoc_zero # FAIL: expect 3, actual 4
     end
   end
+
+  describe 'errors' do
+    let(:customer) { customers(:customer_out)}
+    let(:movie) { movies(:movie_in)}
+    let(:rental) {
+      { customer_id: customer.id,
+        movie_id: movie.id
+      }
+    }
+    let(:rental_bad) {
+      { customer_id: customer.id,
+        movie_id: 1337
+      }
+    }
+
+    it 'sends an error msg when all movies have been checked out' do
+      # checkout a movie with inventory of 1 twice
+      post check_out_path, params: rental, as: :json
+      post check_out_path, params: rental, as: :json
+
+      must_respond_with :bad_request
+
+      body = JSON.parse(response.body)
+      expect(body["ok"]).must_equal false
+      expect(body["cause"]).must_equal "validation errors"
+      # expect(body["errors"]["messages"]).must_include "all copies are currently checked out"
+    end
+
+
+    it 'sends a validation error when checkout data is garbage' do
+      # check out with bad movie id
+      post check_out_path params: rental_bad, as: :json
+      must_respond_with :bad_request
+
+      body = JSON.parse(response.body)
+      expect(body["ok"]).must_equal false
+      expect(body["cause"]).must_equal "validation errors"
+      # expect(body["errors"]["messages"]).must_include "movie id not in database"
+
+    end
+  end
 end
