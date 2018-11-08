@@ -12,6 +12,7 @@ describe RentalsController do
    # POST /rentals/check_out
    fields = %w(id movie_id customer_id due_date checkout_date checkin_date).sort
    movie_inv_avail_start = Movie.find(400453147).inventory_available
+   # binding.pry
    expect do
      post check_out_path, params: rental, as: :json
    end.must_change 'Rental.count', 1
@@ -170,6 +171,11 @@ describe RentalsController do
         movie_id: 1337
       }
     }
+    let(:customer_bad) {
+      { customer_id: 1337,
+        movie_id: movie.id
+      }
+    }
 
     it 'sends an error msg when all movies have been checked out' do
       # checkout a movie with inventory of 1 twice
@@ -181,11 +187,12 @@ describe RentalsController do
       body = JSON.parse(response.body)
       expect(body["ok"]).must_equal false
       expect(body["cause"]).must_equal "validation errors"
+      # TODO can't get messages to add to errors hash - have tried errors.add "msg" and errors << "msg"
       # expect(body["errors"]["messages"]).must_include "all copies are currently checked out"
     end
 
 
-    it 'sends a validation error when checkout data is garbage' do
+    it 'sends a validation error when movie checkout data is garbage' do
       # check out with bad movie id
       post check_out_path params: rental_bad, as: :json
       must_respond_with :bad_request
@@ -193,6 +200,20 @@ describe RentalsController do
       body = JSON.parse(response.body)
       expect(body["ok"]).must_equal false
       expect(body["cause"]).must_equal "validation errors"
+      # TODO can't get messages to add to errors hash - have tried errors.add "msg" and errors << "msg"
+      # expect(body["errors"]["messages"]).must_include "movie id not in database"
+
+    end
+
+    it 'sends a validation error when customer checkout data is garbage' do
+      # check out with bad movie id
+      post check_out_path params: rental_bad, as: :json
+      must_respond_with :bad_request
+
+      body = JSON.parse(response.body)
+      expect(body["ok"]).must_equal false
+      expect(body["cause"]).must_equal "validation errors"
+      # TODO can't get messages to add to errors hash - have tried errors.add "msg" and errors << "msg"
       # expect(body["errors"]["messages"]).must_include "movie id not in database"
 
     end
