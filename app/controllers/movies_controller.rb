@@ -68,8 +68,13 @@ class MoviesController < ApplicationController
   # - `postal_code`
   # - `checkout_date`
   # - `due_date`
+  # 
+  # - Customers can be sorted by `name`, `registered_at` and `postal_code`
+  # - Movies can be sorted by `title` and `release_date`
+  # - Overdue rentals can be sorted by `title`, `name`, `checkout_date` and `due_date`
 
   def overdue
+
   end
 
   private
