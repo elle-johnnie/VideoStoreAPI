@@ -20,25 +20,25 @@ class RentalsController < ApplicationController
   end
 
   def overdue
-    # overdue_rentals = Rental.where(checkin_date: nil).where("rentals.due_date < ?", Date.current)
-    # # @sorters will always be a%w(checkout_date due_date title name) 1-d ordered array of unique values.
-    #
-    # # %w(checkout_date due_date title name)
-    #
-    # @sorters.each do |sorter|
-    #   case sorter
-    #   when "checkout_date" || "due_date"
-    #     overdue_rentals = overdue_rentals.order(sorter => :asc) # asc is default - just being explicit
-    #   when "title"
-    #     overdue_rentals = overdue_rentals.order()
-    #   when "name"
-    #
-    #   end
-    # end
-    #
-    # @overdue_rentals = overdue_rentals
+    overdue_rentals = Rental.includes(:movie).includes(:customer).where(checkin_date: nil).where("rentals.due_date < ?", Date.current)
+    # @sorters will always be a 1-d ordered array of unique values.
 
-    @overdue_rentals = Rental.where(checkin_date: nil).where("rentals.due_date < ?", Date.current)
+    # %w(checkout_date due_date title name)
+
+    @sorters.each do |sorter|
+      if sorter == "checkout_date" || sorter == "due_date"
+        overdue_rentals = overdue_rentals.order(sorter => :asc) # asc is default - just being explicit
+      elsif sorter == "title"
+        # @users = User.includes(:user_extension).order("user_extensions.company desc")
+        overdue_rentals = overdue_rentals.order("movie.title asc")
+      elsif sorter == "name"
+        overdue_rentals = overdue_rentals.order("customer.title asc")
+      end
+    end
+
+    @overdue_rentals = overdue_rentals
+
+    # @overdue_rentals = Rental.where(checkin_date: nil).where("rentals.due_date < ?", Date.current)
   end
 
   private
