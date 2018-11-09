@@ -16,14 +16,16 @@ private
     return [:id] unless params[:sort]
     # returns an array of 1+ sort fields (string) that are valid for the model.
     # different controllers accept different sort fields.
-    valid_sorters = {
+    @valid_sorters = {
                       'customers' => %w(name registered_at postal_code),
                       'movies' => %w(title release_date),
-                      'rentals' => %w(title name checkout_date due_date) # Just For Overdue Rentals
+                      'rentals' => %w(checkout_date due_date title name) # Just For Overdue Rentals (rentals#overdue)
                     }
-    sorters = CGI.parse(request.query_string)["sort"].uniq
-    sorters = sorters.select { |sorter| valid_sorters[controller_name].include?(sorter) }
 
+# You can't apply the same sorter twice -- the second instance will be ignored
+    sorters = CGI.parse(request.query_string)["sort"].uniq
+    sorters = sorters.map{|sorter| sorter.gsub(' ', '_')}
+    sorters = sorters.select { |sorter| @valid_sorters[controller_name].include?(sorter) }
     return sorters.empty? ? ["id"] : sorters # The default sorter is "id"
   end
 
@@ -33,10 +35,16 @@ private
 ##################################################################
   def permit_p_param
     # return 1 integer (see will_paginate gem)
+    #
+    # return [:id] unless params[:p]
+    # sorters = CGI.parse(request.query_string)["p"].uniq
   end
 
   def permit_n_param
     # return 1 integer (see will_paginate gem)
+    #
+    # return [:id] unless params[:p]
+    # sorters = CGI.parse(request.query_string)["p"].uniq
   end
 ##################################################################
 
@@ -49,6 +57,13 @@ end
       # uri    = URI.parse(url)
       # params = CGI.parse(uri.query)
       # params is now {"id"=>["4"], "empid"=>["6"]}
+# An example based on this app would be:
+#       sorters = CGI.parse(request.query_string)
+# which would return:
+#       { "sort"=>["title", "name", "bogus!", "registered at"], "p" => ["3", "-1", "i love bubble tea"]}
+#
+#
+#
 #
 # From README:
 # Any endpoint that returns a list should accept 3 optional query parameters:

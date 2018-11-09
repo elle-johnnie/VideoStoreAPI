@@ -82,7 +82,7 @@ describe RentalsController do
    expect(movie_inv_avail_end).must_equal movie_inv_avail_start + 1
   end
 
-  describe 'SJL: mimicking the postman wave3 smoke test' do
+  describe 'Checkin and Checkout' do
     let (:customer) { customers(:customer_out)}
     let (:movie) { movies(:movie_in)}
     let(:new_rental_params) {
@@ -190,6 +190,54 @@ describe RentalsController do
       mcoc_end = body3[0]["movies_checked_out_count"]
       expect(Rental.count).must_equal 11
       expect(mcoc_end).must_equal 3 #mcoc_zero # FAIL: expect 3, actual 4
+    end
+  end
+
+  describe 'get query params' do
+    let (:new_rental) { Rental.new(customer: customer_overdue_test,
+                                  movie: movie_out3
+                      }
+    describe 'sorter' do
+      it 'given a single valid sorter, it sorts Overdue Rentals in ascending order' do
+        # valid: title, name, checkout_date and due_date
+
+        # path = '/movies?sort=title'
+        # get path, as: :json
+        # body = JSON.parse(response.body)
+        # expect(body.last["title"]).must_equal "CATTACA"
+      end
+
+      it 'defaults to id: :asc if the query is nil or an empty string' do
+        # new_movie.save!
+        # path = '/movies'
+        # query_string = ["", "?sort=", "?", "sort="]
+        # query_string.each do |query|
+        #    path << query
+        #    get path, as: :json
+        #    body = JSON.parse(response.body)
+        #    expect(body.first["title"]).must_equal "movie_first"
+        end
+      end
+
+      it 'will throw out invalid sorters and default to id' do
+        # new_movie.save!
+        # path = '/movies?sort='
+        # query_string = ["bubble tea", "bubbletea", "overview", "inventory", "inventory_available"]
+        # query_string.each do |query|
+        #    path << query
+        #    get path, as: :json
+        #    body = JSON.parse(response.body)
+        #    expect(body.first["title"]).must_equal "movie_first"
+        #  end
+      end
+
+      it 'given >1 valid sorters, it applies sorters left to right' do
+        # path = '/movies?sort=release_date&sort=title'
+        # get path, as: :json
+        # body = JSON.parse(response.body)
+        # expect(body[0]["title"]).must_equal "Bend It Like It Like That"
+        # expect(body[1]["title"]).must_equal "CATTACA"
+      end
     end
   end
 end
