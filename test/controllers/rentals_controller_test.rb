@@ -29,9 +29,9 @@ describe RentalsController do
    body = JSON.parse(response.body)
 
    expect(body.keys.sort).must_equal fields
-   expect(body["checkout_date"]).must_equal Date.today.to_s
+   expect(body["checkout_date"]).must_equal Date.current.to_s
    expect(body["checkin_date"]).must_be_nil
-   expect(body["due_date"]).must_equal (Date.today + 7).to_s
+   expect(body["due_date"]).must_equal (Date.current + 7).to_s
    expect(movie_inv_avail_end).must_equal movie_inv_avail_start - 1
   end
 
@@ -52,7 +52,7 @@ describe RentalsController do
    body = JSON.parse(response.body)
 
    expect(body.keys.sort).must_equal fields
-   expect(body["checkin_date"]).must_equal Date.today.to_s
+   expect(body["checkin_date"]).must_equal Date.current.to_s
    expect(movie_inv_avail_end).must_equal movie_inv_avail_start + 1
   end
 

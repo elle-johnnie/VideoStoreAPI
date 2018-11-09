@@ -36,7 +36,11 @@ class RentalsController < ApplicationController
     unless @rental.checkin_data && @rental.save
       render json: {ok: false, cause: "validation errors", errors: @rental.errors}, status: :bad_request
     end
+  end
 
+  def overdue
+    today = Date.current
+    @overdue_rentals = Rental.where("due_date < today")
   end
 
   private

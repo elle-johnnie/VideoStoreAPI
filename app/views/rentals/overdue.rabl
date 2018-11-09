@@ -1,23 +1,46 @@
-collection @rentals
-child :movie do
-  attributes :id #rename movie_id, :title
+collection @overdue_rentals
+attributes :movie_id
+child :movie do |r|
+  { :title => r.movie.title }
 end
-
-node :location do |m|
-  { :city => m.city, :address => partial("users/address", :object => m.address) }
+attributes :customer_id
+child :customer do |r|
+  { :name => r.customer.name,
+    :postal_code => r.customer.postal_code}
 end
+attributes :checkout_date, :due_date
 
-node :location do |m|
-  { :city => m.city, :address => partial("users/address", :object => m.address) }
-end
-
-child :customer do
-  attributes :id #rename customer_id, :name, :postal_code, :checkout_date, :due_date
-end
-#
-# extends attributes :id, :customer_id, :movie_id, :checkout_date, :checkin_date, :due_date
-
-# node(:movies_checked_out_count) { |customer| movies_out_count(customer) }
+# [ { "rental" :
+#     {
+#       "movie_id" : "1",
+#       "movie" : {
+#         "title" : "Mook Kim"
+#       },
+#       "customer_id" : "1",
+#       "customer" : {
+#         "name" : "Mook Kim",
+#         "postal_code" : "12345"
+#       }
+#     },
+#     "checkout_date" : "[a date]",
+#     "due_date" : "[a date]"
+#   },
+#   { "rental" :
+#       {
+#         "movie_id" : "1",
+#         "movie" : {
+#           "title" : "Mook Kim"
+#         },
+#         "customer_id" : "1",
+#         "customer" : {
+#           "name" : "Mook Kim",
+#           "postal_code" : "12345"
+#         }
+#       },
+#       "checkout_date" : "[a date]",
+#       "due_date" : "[a date]"
+#     },
+# ]
 
 
 # Fields to return:
@@ -32,11 +55,3 @@ end
 # - Customers can be sorted by `name`, `registered_at` and `postal_code`
 # - Movies can be sorted by `title` and `release_date`
 # - Overdue rentals can be sorted by `title`, `name`, `checkout_date` and `due_date`
-
-
-
-=begin
-# => [ { "rental" : { ... } } ]
-
-
-=end

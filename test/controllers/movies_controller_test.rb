@@ -87,7 +87,7 @@ describe MoviesController do
     let (:new_movie) { Movie.new(id: 1,
                                  title: "movie_first",
                                  overview: "watch me",
-                                 release_date: Date.today,
+                                 release_date: Date.current,
                                  inventory: 5,
                                  inventory_available: 0)
                     }

@@ -5,7 +5,7 @@ describe Rental do
   let (:rental_out) {rentals(:rental_out)}
 
   describe 'Validations' do
-    let (:new_rental) { Rental.new(checkout_date: Date.today,
+    let (:new_rental) { Rental.new(checkout_date: Date.current,
                                due_date: Date.tomorrow,
                                customer: customers(:customer_out),
                                movie: movies(:movie_in))
