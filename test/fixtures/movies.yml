@@ -20,3 +20,10 @@ movie_out3:
   release_date: 1991-11-05
   inventory: 50
   inventory_available: 47
+
+movie_out4:
+  title: Actually Love
+  overview: MyString
+  release_date: 2018-11-05
+  inventory: 1
+  inventory_available: 1
