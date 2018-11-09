@@ -4,7 +4,7 @@ describe Movie do
   describe 'Validations' do
     let (:new_movie) { Movie.new(title: "valid movie",
                              overview: "overview",
-                             release_date: Date.today,
+                             release_date: Date.current,
                              inventory: 99)
                  }
 

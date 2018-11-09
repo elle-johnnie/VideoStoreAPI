@@ -3,27 +3,62 @@
 rental_out:
   checkout_date: 2018-11-05
   checkin_date:
-  due_date: 2018-11-10
+  due_date: Date.current + 30
   movie: movie_out
   customer: customer_out
 
 rental_in:
   checkout_date: 2018-11-04
   checkin_date: 2018-11-05
-  due_date: 2018-11-10
+  due_date: 2018-11-09
   movie: movie_in
   customer: customer_in
 
 rental_out2:
   checkout_date: 2018-11-05
   checkin_date:
-  due_date: 2018-11-10
+  due_date: Date.current + 30
   movie: movie_out3
   customer: customer_out
 
 rental_out3:
   checkout_date: 2018-11-05
   checkin_date:
-  due_date: 2018-11-10
+  due_date: Date.current + 30
   movie: movie_out3
   customer: customer_out
+
+odr1:
+  checkout_date: 2000-11-10
+  checkin_date:
+  due_date: 2001-11-10
+  movie: movie_out3
+  customer: customer_overdue_test
+
+odr2:
+  checkout_date: 2000-11-10
+  checkin_date:
+  due_date: 2001-11-10
+  movie: movie_out3
+  customer: customer_overdue_test
+
+odr3:
+  checkout_date: 2000-11-10
+  checkin_date:
+  due_date: 2001-11-10
+  movie: movie_out3
+  customer: customer_overdue_test
+
+out_rental_not_due_yet:
+  checkout_date: 2018-11-05
+  checkin_date:
+  due_date: Date.current + 30
+  movie: movie_out3
+  customer: customer_overdue_test
+
+overdue_rental_checked_in:
+  checkout_date: 2000-11-10
+  checkin_date: 2018-11-05
+  due_date: 2001-11-10
+  movie: movie_out3
+  customer: customer_overdue_test

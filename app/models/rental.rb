@@ -14,8 +14,8 @@ class Rental < ApplicationRecord
 
   def checkout_data
     if valid_movie? && valid_cust? && movie_available?
-      self.checkout_date = Date.today
-      self.due_date = Date.today + 7
+      self.checkout_date = Date.current
+      self.due_date = Date.current + 7
       self.checkin_date = nil
       # self.save
       return self
@@ -29,7 +29,7 @@ class Rental < ApplicationRecord
       rented = Movie.find_by(id: movie_id)
       rented.inventory_available += 1
       rented.save
-      self.checkin_date = Date.today
+      self.checkin_date = Date.current
       return self
     end
     return self
@@ -61,9 +61,9 @@ class Rental < ApplicationRecord
   def movie_available?
     movie_id = self[:movie_id]
     rentable = Movie.find_by(id: movie_id)
-    if rentable .inventory_available > 0
-      rentable .inventory_available -= 1
-      rentable .save
+    if rentable.inventory_available > 0
+      rentable.inventory_available -= 1
+      rentable.save
     else
       errors.add(:movie, "all copies are currently checked out")
       return false
@@ -71,4 +71,3 @@ class Rental < ApplicationRecord
     return true
   end
 end
-

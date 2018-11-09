@@ -27,4 +27,4 @@
 /coverage/*
 
 .idea
-.sandbox
+.sandbox*
