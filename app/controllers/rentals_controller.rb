@@ -1,20 +1,10 @@
 class RentalsController < ApplicationController
-  #### `GET /zomg`
+  before_action :get_query_params, only: [:overdue]
+
   def zomg
     render json: {message: "it works"}
   end
 
-  #### `POST /rentals/check-out`
-  # Check out one of the movie's inventory to the customer. The rental's check-out date should be set to today, and the due date should be set to a week from today.
-  #
-  # **Note:** Some of the fields from wave 2 should now have interesting values. Good thing you wrote tests for them, right... right?
-  #
-  # Request body:
-  #
-  # | Field         | Datatype            | Description
-  # |---------------|---------------------|------------
-  # | `customer_id` | integer             | ID of the customer checking out this film
-  # | `movie_id`    | integer | ID of the movie to be checked out
   def check_out
     @rental = Rental.new(rental_params)
     unless @rental.checkout_data && @rental.save
@@ -22,15 +12,6 @@ class RentalsController < ApplicationController
     end
   end
 
-  #### `POST /rentals/check-in`
-  # Check in one of a customer's rentals
-  #
-  # Request body:
-  #
-  # | Field         | Datatype | Description
-  # |---------------|----------|------------
-  # | `customer_id` | integer  | ID of the customer checking in this film
-  # | `movie_id`    | integer | ID of the movie to be checked in
   def check_in
     @rental = Rental.find_by(movie_id: params[:movie_id], customer_id: params[:customer_id], checkin_date: nil)
     unless @rental.checkin_data && @rental.save
@@ -38,24 +19,14 @@ class RentalsController < ApplicationController
     end
   end
 
-
-  #### `GET /rentals/overdue`
-  # List all customers with overdue movies
-  #
-  # Fields to return:
-  # - `movie_id`
-  # - `title`
-  # - `customer_id`
-  # - `name`
-  # - `postal_code`
-  # - `checkout_date`
-  # - `due_date`
-  #
-  # - Customers can be sorted by `name`, `registered_at` and `postal_code`
-  # - Movies can be sorted by `title` and `release_date`
-  # - Overdue rentals can be sorted by `title`, `name`, `checkout_date` and `due_date`
   def overdue
-    @overdue_rentals = Rental.where(checkin_date: nil).where("rentals.due_date < ?", Date.current)
+    overdue_rentals = Rental.where(checkin_date: nil).where("rentals.due_date < ?", Date.current)
+
+    @sorters.each do |sorter|
+      overdue_rentals = overdue_rentals.order(sorter => :asc) # asc is default - just being explicit
+    end
+
+    @overdue_rentals = overdue_rentals
   end
 
   private

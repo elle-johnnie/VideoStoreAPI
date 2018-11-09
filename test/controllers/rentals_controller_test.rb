@@ -112,6 +112,9 @@ describe RentalsController do
     end
 
     it 'checking IN a movie decreases customer mcoc count by one' do
+      ################################################
+      # SJL: This should be an exact copy of the check-in test from the check-out test below.
+      ################################################
       # ZERO
       get customers_path, as: :json
       value(response).must_be :successful?
@@ -149,7 +152,8 @@ describe RentalsController do
 
 
       ################################################
-      # TWO
+      # SJL: REPEAT TEST A SECOND TIME to make sure the correct rental
+      # is retrieved from an array of rentals.
       ################################################
 
       # ZERO

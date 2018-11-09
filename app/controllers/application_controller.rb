@@ -1,12 +1,15 @@
 class ApplicationController < ActionController::API
-require 'cgi'
+  require 'cgi'
+
 private
 
 # Any endpoint that returns a list should accept 3 optional query parameters:
   def get_query_params
     @sorters = permit_sort_params
-    @per_page = permit_p_param
-    @num_pages = permit_n_param
+##################################################################
+    @per_page = permit_p_param        # SJL: these don't do anything
+    @num_pages = permit_n_param       # (see note in comment below.)
+##################################################################
   end
 
   def permit_sort_params
@@ -24,24 +27,30 @@ private
     return sorters.empty? ? ["id"] : sorters # The default sorter is "id"
   end
 
+##################################################################
+# SJL: These sorters haven't been created and don't do anything,
+# but this is where it could (and I think should) go.
+##################################################################
   def permit_p_param
-    # return 1 integer (see wp gem)
+    # return 1 integer (see will_paginate gem)
   end
 
   def permit_n_param
-    # return 1 integer (see wp gem)
+    # return 1 integer (see will_paginate gem)
   end
-
+##################################################################
 
 end
 
-# CGI.parse knows what to do if a query param appears > once in the url.
-# it just adds it to the array!
-# url    = 'http://www.foo.com?id=4&empid=6'
-# uri    = URI.parse(url)
-# params = CGI.parse(uri.query)
-# params is now {"id"=>["4"], "empid"=>["6"]}
+# Note on CGI.parse:
+      # CGI.parse knows what to do if a query param appears > once in the url.
+      # it just adds it to the array!
+      # url    = 'http://www.foo.com?id=4&empid=6'
+      # uri    = URI.parse(url)
+      # params = CGI.parse(uri.query)
+      # params is now {"id"=>["4"], "empid"=>["6"]}
 #
+# From README:
 # Any endpoint that returns a list should accept 3 optional query parameters:
 #
 # Name	Value	Description

@@ -36,7 +36,3 @@ class Rental < ApplicationRecord
     self.checkin_date = Date.current
   end
 end
-
-
-
-# Rental.new(checkout_date: Date.yesterday, due_date: Date.tomorrow, movie_id: 4, customer_id: 1)
