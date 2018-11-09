@@ -30,9 +30,11 @@ class RentalsController < ApplicationController
         overdue_rentals = overdue_rentals.order(sorter => :asc) # asc is default - just being explicit
       elsif sorter == "title"
         # @users = User.includes(:user_extension).order("user_extensions.company desc")
-        overdue_rentals = overdue_rentals.order("movie.title asc")
+        overdue_rentals = overdue_rentals.order("movies.title asc")
+
+        # rentals = Rental.includes(:movie).order("movie.title asc").where(checkin_date: nil).where("rentals.due_date < ?", Date.current)
       elsif sorter == "name"
-        overdue_rentals = overdue_rentals.order("customer.title asc")
+        overdue_rentals = overdue_rentals.order("customers.name asc")
       end
     end
 
