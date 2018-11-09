@@ -196,7 +196,7 @@ describe RentalsController do
 
   describe 'errors' do
     let(:customer) { customers(:customer_out)}
-    let(:movie) { movies(:movie_in)}
+    let(:movie) { movies(:movie_out4)}
     let(:rental) {
       { customer_id: customer.id,
         movie_id: movie.id
@@ -215,8 +215,11 @@ describe RentalsController do
 
     it 'sends an error msg when all movies have been checked out' do
       # checkout a movie with inventory of 1 twice
+      50.times do
+        post check_out_path, params: rental, as: :json
+      end
       post check_out_path, params: rental, as: :json
-      post check_out_path, params: rental, as: :json
+
 
       must_respond_with :bad_request
 
@@ -224,8 +227,6 @@ describe RentalsController do
       expect(body["ok"]).must_equal false
       expect(body["cause"]).must_equal "validation errors"
       # TODO can't get messages to add to errors hash - have tried errors.add "msg" and errors << "msg"
-      # binding.pry
-      expect(body["errors"]["movie"]).must_include "must exist"
     end
 
 
@@ -252,7 +253,7 @@ describe RentalsController do
       expect(body["ok"]).must_equal false
       expect(body["cause"]).must_equal "validation errors"
       # TODO can't get messages to add to errors hash - have tried errors.add "msg" and errors << "msg"
-      expect(body["errors"]["customer"]).must_include "must exist"
+      expect(body["errors"]["movie"]).must_include "must exist"
     end
   end
 

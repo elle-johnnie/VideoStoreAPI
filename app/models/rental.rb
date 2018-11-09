@@ -61,6 +61,7 @@ class Rental < ApplicationRecord
   def movie_available?
     movie_id = self[:movie_id]
     rentable = Movie.find_by(id: movie_id)
+
     if rentable.inventory_available > 0
       rentable.inventory_available -= 1
       rentable.save
