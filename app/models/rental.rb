@@ -42,7 +42,7 @@ class Rental < ApplicationRecord
     cust_id = self[:customer_id]
     cust = Customer.find_by(id: cust_id)
     if cust.nil?
-      errors.add(:messages, "customer id not in database")
+      errors.add(:customer, "customer id not in database")
       return false
     end
     return true
@@ -52,7 +52,7 @@ class Rental < ApplicationRecord
     movie_id = self[:movie_id]
     rentable = Movie.find_by(id: movie_id)
     if rentable.nil?
-      errors.add(:messages, "movie id not in database")
+      errors.add(:movie, "movie id not in database")
       return false
     end
     return true
@@ -65,7 +65,7 @@ class Rental < ApplicationRecord
       rentable .inventory_available -= 1
       rentable .save
     else
-      errors.add(:messages,  "all copies are currently checked out")
+      errors.add(:movie, "all copies are currently checked out")
       return false
     end
     return true

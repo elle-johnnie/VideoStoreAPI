@@ -7,7 +7,7 @@ class RentalsController < ApplicationController
   def check_out
     @rental = Rental.new(rental_params)
     unless @rental.checkout_data && @rental.save
-      render json: {ok: false, cause: "validation errors", errors: @rental.errors}, status: :bad_request
+      render json: {ok: false, cause: "validation errors", errors: @rental.errors.messages}, status: :bad_request
     end
   end
   # post check_in_path with params
@@ -15,7 +15,7 @@ class RentalsController < ApplicationController
   def check_in
     @rental = Rental.find_by(movie_id: params[:movie_id], customer_id: params[:customer_id], checkin_date: nil)
     unless @rental.checkin_data && @rental.save
-      render json: {ok: false, cause: "validation errors", errors: @rental.errors}, status: :bad_request
+      render json: {ok: false, cause: "validation errors", errors: @rental.errors.messages}, status: :bad_request
     end
   end
 

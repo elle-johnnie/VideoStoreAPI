@@ -31,7 +31,7 @@ class MoviesController < ApplicationController
   # - This will be the same as `inventory` unless you've completed the optional endpoints.
   def show
     @movie = Movie.find_by(id: params[:id])
-    render json: {ok: false, cause: :not_found}, status: :not_found if @movie.nil?
+    render json: { ok: false, cause: :not_found }, status: :not_found if @movie.nil?
   end
 
 

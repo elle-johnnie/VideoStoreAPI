@@ -188,7 +188,8 @@ describe RentalsController do
       expect(body["ok"]).must_equal false
       expect(body["cause"]).must_equal "validation errors"
       # TODO can't get messages to add to errors hash - have tried errors.add "msg" and errors << "msg"
-      # expect(body["errors"]["messages"]).must_include "all copies are currently checked out"
+      # binding.pry
+      expect(body["errors"]["movie"]).must_include "must exist"
     end
 
 
@@ -201,7 +202,8 @@ describe RentalsController do
       expect(body["ok"]).must_equal false
       expect(body["cause"]).must_equal "validation errors"
       # TODO can't get messages to add to errors hash - have tried errors.add "msg" and errors << "msg"
-      # expect(body["errors"]["messages"]).must_include "movie id not in database"
+      # binding.pry
+      expect(body["errors"]["movie"]).must_include "must exist"
 
     end
 
@@ -214,7 +216,7 @@ describe RentalsController do
       expect(body["ok"]).must_equal false
       expect(body["cause"]).must_equal "validation errors"
       # TODO can't get messages to add to errors hash - have tried errors.add "msg" and errors << "msg"
-      # expect(body["errors"]["messages"]).must_include "movie id not in database"
+      expect(body["errors"]["customer"]).must_include "must exist"
 
     end
   end
