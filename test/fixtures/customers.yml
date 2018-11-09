@@ -32,8 +32,24 @@ customer_z:
   postal_code: "00000"
   phone: MyString
 
-customer_overdue_test:
-  name: Use Me ONLY For rentals#overdue
+customer_odt_1:
+  name: Angelica Use Me ONLY For rentals#overdue
+  registered_at: 1991-11-06 12:32:19
+  address:
+  state: MyString
+  postal_code: "99999999"
+  phone: MyString
+
+customer_odt_2:
+  name: Beckham Use Me ONLY For rentals#overdue
+  registered_at: 1991-11-06 12:32:19
+  address:
+  state: MyString
+  postal_code: "99999999"
+  phone: MyString
+
+customer_odt_3:
+  name: Yabadabadoo Use Me ONLY For rentals#overdue
   registered_at: 1991-11-06 12:32:19
   address:
   state: MyString

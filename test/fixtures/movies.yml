@@ -27,3 +27,24 @@ movie_out4:
   release_date: 2018-11-05
   inventory: 1
   inventory_available: 1
+
+movie_odt_1:
+  title: Actually Love
+  overview: MyString
+  release_date: 2018-11-05
+  inventory: 20
+  inventory_available: 20
+
+movie_odt_2:
+  title: Bend It Like It Like That
+  overview: MyString
+  release_date: 2018-11-05
+  inventory: 20
+  inventory_available: 20
+
+movie_odt_3:
+  title: CATTACA
+  overview: MyString
+  release_date: 2018-11-05
+  inventory: 20
+  inventory_available: 20

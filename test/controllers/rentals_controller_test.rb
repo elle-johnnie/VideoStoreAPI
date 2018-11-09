@@ -220,7 +220,6 @@ describe RentalsController do
       end
       post check_out_path, params: rental, as: :json
 
-
       must_respond_with :bad_request
 
       body = JSON.parse(response.body)
@@ -228,7 +227,6 @@ describe RentalsController do
       expect(body["cause"]).must_equal "validation errors"
       # TODO can't get messages to add to errors hash - have tried errors.add "msg" and errors << "msg"
     end
-
 
     it 'sends a validation error when movie checkout data is garbage' do
       # check out with bad movie id
@@ -241,7 +239,6 @@ describe RentalsController do
       # TODO can't get messages to add to errors hash - have tried errors.add "msg" and errors << "msg"
       # binding.pry
       expect(body["errors"]["movie"]).must_include "must exist"
-
     end
 
     it 'sends a validation error when customer checkout data is garbage' do
@@ -258,48 +255,54 @@ describe RentalsController do
   end
 
   describe 'get query params' do
-    let (:new_rental) { Rental.new(customer: customer_overdue_test,
-                                  movie: movie_out3)
-                      }
     describe 'sorter' do
-      it 'given a single valid sorter, it sorts Overdue Rentals in ascending order' do
-        # valid: title, name, checkout_date and due_date
+      it 'given a single valid rental sorter, it sorts Overdue Rentals in ascending order' do
+        path = '/rentals/overdue?sort=due%20date'
+        get path, as: :json
+        body = JSON.parse(response.body)
+        expect(Date.parse(body[0]["due_date"])).must_equal rentals(:rental_odt_3).due_date
+        expect(Date.parse(body[1]["due_date"])).must_equal rentals(:rental_odt_2).due_date
+        expect(Date.parse(body[2]["due_date"])).must_equal rentals(:rental_odt_1).due_date
+      end
 
-        # path = '/movies?sort=title'
-        # get path, as: :json
-        # body = JSON.parse(response.body)
-        # expect(body.last["title"]).must_equal "CATTACA"
+      it 'sorts by associated records, e.g. movie title' do
+        path = '/rentals/overdue?sort=title'
+        get path, as: :json
+        body = JSON.parse(response.body)
+        expect(body[0]["movie"]["title"]).must_equal "Actually Love"
+        expect(body[1]["movie"]["title"]).must_equal "Actually Love"
+        expect(body[2]["movie"]["title"]).must_equal "Bend It Like It Like That"
       end
 
       it 'defaults to id: :asc if the query is nil or an empty string' do
-        # new_movie.save!
-        # path = '/movies'
-        # query_string = ["", "?sort=", "?", "sort="]
-        # query_string.each do |query|
-        #    path << query
-        #    get path, as: :json
-        #    body = JSON.parse(response.body)
-        #    expect(body.first["title"]).must_equal "movie_first"
-        end
+        path = '/rentals/overdue'
+        query_string = ["", "?sort=", "?", "sort="]
 
-      it 'will throw out invalid sorters and default to id' do
-        # new_movie.save!
-        # path = '/movies?sort='
-        # query_string = ["bubble tea", "bubbletea", "overview", "inventory", "inventory_available"]
-        # query_string.each do |query|
-        #    path << query
-        #    get path, as: :json
-        #    body = JSON.parse(response.body)
-        #    expect(body.first["title"]).must_equal "movie_first"
-        #  end
+        overdue_rentals_fixtures_rental_ids_sorted =
+                    [rentals(:rental_odt_1).id,
+                     rentals(:rental_odt_2).id,
+                     rentals(:rental_odt_3).id].sort
+        first_id = overdue_rentals_fixtures_rental_ids_sorted[0]
+        first_overdue_rental_fixture_by_id = Rental.find(first_id)
+
+        query_string.each do |query|
+           path << query
+           get path, as: :json
+           body = JSON.parse(response.body)
+           expect(Date.parse(body.first["due_date"])).must_equal first_overdue_rental_fixture_by_id.due_date
+        end
       end
 
       it 'given >1 valid sorters, it applies sorters left to right' do
-        # path = '/movies?sort=release_date&sort=title'
-        # get path, as: :json
-        # body = JSON.parse(response.body)
-        # expect(body[0]["title"]).must_equal "Bend It Like It Like That"
-        # expect(body[1]["title"]).must_equal "CATTACA"
+        path = '/rentals/overdue?sort=title&sort=name'
+        get path, as: :json
+        body = JSON.parse(response.body)
+        expect(body[0]["movie"]["title"][0]).must_equal "A"
+        expect(body[1]["movie"]["title"][0]).must_equal "A"
+        expect(body[2]["movie"]["title"][0]).must_equal "B"
+        expect(body[0]["customer"]["name"][0]).must_equal "A"
+        expect(body[1]["customer"]["name"][0]).must_equal "Y"
+        expect(body[2]["customer"]["name"][0]).must_equal "B"
       end
     end
   end
