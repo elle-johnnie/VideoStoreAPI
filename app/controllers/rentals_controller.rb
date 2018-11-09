@@ -38,9 +38,24 @@ class RentalsController < ApplicationController
     end
   end
 
+
+  #### `GET /rentals/overdue`
+  # List all customers with overdue movies
+  #
+  # Fields to return:
+  # - `movie_id`
+  # - `title`
+  # - `customer_id`
+  # - `name`
+  # - `postal_code`
+  # - `checkout_date`
+  # - `due_date`
+  #
+  # - Customers can be sorted by `name`, `registered_at` and `postal_code`
+  # - Movies can be sorted by `title` and `release_date`
+  # - Overdue rentals can be sorted by `title`, `name`, `checkout_date` and `due_date`
   def overdue
-    today = Date.current
-    @overdue_rentals = Rental.where("due_date < today")
+    @overdue_rentals = Rental.where(checkin_date: nil).where("rentals.due_date < ?", Date.current)
   end
 
   private

@@ -1,47 +1,23 @@
 collection @overdue_rentals
-attributes :movie_id
-child :movie do |r|
-  { :title => r.movie.title }
-end
-attributes :customer_id
-child :customer do |r|
-  { :name => r.customer.name,
-    :postal_code => r.customer.postal_code}
-end
-attributes :checkout_date, :due_date
+attributes :movie_id, :customer_id, :checkout_date, :due_date
+child(:movie) { attributes :title }
+child(:customer) { attributes :name, :postal_code }
 
-# [ { "rental" :
-#     {
-#       "movie_id" : "1",
-#       "movie" : {
-#         "title" : "Mook Kim"
-#       },
-#       "customer_id" : "1",
-#       "customer" : {
-#         "name" : "Mook Kim",
-#         "postal_code" : "12345"
-#       }
+# [
+#   {
+#     movie_id: 3,
+#     customer_id: 3,
+#     checkout_date: "2018-11-05",
+#     due_date: "2018-11-06",
+#     movie: {
+#       title: "Rats And Strangers"
 #     },
-#     "checkout_date" : "[a date]",
-#     "due_date" : "[a date]"
-#   },
-#   { "rental" :
-#       {
-#         "movie_id" : "1",
-#         "movie" : {
-#           "title" : "Mook Kim"
-#         },
-#         "customer_id" : "1",
-#         "customer" : {
-#           "name" : "Mook Kim",
-#           "postal_code" : "12345"
-#         }
-#       },
-#       "checkout_date" : "[a date]",
-#       "due_date" : "[a date]"
-#     },
+#     customer: {
+#       name: "Roanna Robinson",
+#       postal_code: "15867"
+#     }
+#   }
 # ]
-
 
 # Fields to return:
 # - `movie_id`

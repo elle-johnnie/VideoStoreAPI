@@ -31,3 +31,11 @@ customer_z:
   state: MyString
   postal_code: "00000"
   phone: MyString
+
+customer_overdue_test:
+  name: Use Me ONLY For rentals#overdue
+  registered_at: 1991-11-06 12:32:19
+  address:
+  state: MyString
+  postal_code: "99999999"
+  phone: MyString
