@@ -67,6 +67,25 @@ describe CustomersController do
         expect(body[1]["name"]).must_equal "Zipper Zigzag"
       end
     end
+
+    describe 'items per page' do
+      it 'returns the appropriate # of items per page "n"' do
+        get '/customers?n=2', as: :json
+        body = JSON.parse(response.body)
+        expect(body.length).must_equal 2
+      end
+
+    end
+
+    describe 'page number' do
+      it 'returns a start page if specified "p"' do
+        get '/customers?n=2&p=2', as: :json
+        body = JSON.parse(response.body)
+        # expect 2nd set of fixtures sorted by id asc order
+        expect(body[1]["id"]).must_equal 859843310
+      end
+
+    end
   end
 
 end

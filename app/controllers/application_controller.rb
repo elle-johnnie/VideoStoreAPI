@@ -7,8 +7,8 @@ private
   def get_query_params
     @sorters = permit_sort_params
 ##################################################################
-    @per_page = permit_p_param        # SJL: these don't do anything
-    @num_pages = permit_n_param       # (see note in comment below.)
+    @page = permit_p_param        # SJL: these don't do anything
+    @num = permit_n_param       # (see note in comment below.)
 ##################################################################
   end
 
@@ -33,18 +33,23 @@ private
 # SJL: These sorters haven't been created and don't do anything,
 # but this is where it could (and I think should) go.
 ##################################################################
-  def permit_p_param
-    # return 1 integer (see will_paginate gem)
-    #
-    # return [:id] unless params[:p]
-    # sorters = CGI.parse(request.query_string)["p"].uniq
+  def permit_n_param
+    if params[:n]
+      num = CGI.parse(request.query_string)["n"].uniq
+      num = num.map{|np| np.gsub(' ', '')}
+      # binding.pry
+      return num.empty? ? 1 : num.first.to_i
+    end
   end
 
-  def permit_n_param
-    # return 1 integer (see will_paginate gem)
-    #
-    # return [:id] unless params[:p]
-    # sorters = CGI.parse(request.query_string)["p"].uniq
+  def permit_p_param
+    if params[:p]
+      # return 1 integer (see will_paginate gem)
+      page = CGI.parse(request.query_string)["p"].uniq
+      page = page.map{|p| p.gsub(' ', '')}
+      # binding.pry
+      return page.empty? ? 10 : page.first.to_i
+    end
   end
 ##################################################################
 
