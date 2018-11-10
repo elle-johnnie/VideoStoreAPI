@@ -7,8 +7,8 @@ private
   def get_query_params
     @sorters = permit_sort_params
 ##################################################################
-    @per_page = permit_p_param        # SJL: these don't do anything
-    @num_page = permit_n_param       # (see note in comment below.)
+    @page = permit_p_param        # SJL: these don't do anything
+    @num = permit_n_param       # (see note in comment below.)
 ##################################################################
   end
 
@@ -34,20 +34,22 @@ private
 # but this is where it could (and I think should) go.
 ##################################################################
   def permit_n_param
-    return [:id] unless params[:n]
-    num_page = CGI.parse(request.query_string)["n"].uniq
-    num_page = num_page.map{|np| np.gsub(' ', '')}
-    # binding.pry
-    return num_page.empty? ? 1 : num_page.first.to_i
+    if params[:n]
+      num = CGI.parse(request.query_string)["n"].uniq
+      num = num.map{|np| np.gsub(' ', '')}
+      # binding.pry
+      return num.empty? ? 1 : num.first.to_i
+    end
   end
 
   def permit_p_param
-    return [:id] unless params[:p]
-    # return 1 integer (see will_paginate gem)
-    per_page = CGI.parse(request.query_string)["p"].uniq
-    per_page = per_page.map{|page| page.gsub(' ', '')}
-    # binding.pry
-    return per_page.empty? ? 10 : per_page.first.to_i
+    if params[:p]
+      # return 1 integer (see will_paginate gem)
+      page = CGI.parse(request.query_string)["p"].uniq
+      page = page.map{|p| p.gsub(' ', '')}
+      # binding.pry
+      return page.empty? ? 10 : page.first.to_i
+    end
   end
 ##################################################################
 

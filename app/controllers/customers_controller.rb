@@ -6,7 +6,7 @@ class CustomersController < ApplicationController
     customers = Customer.all
 
     @sorters.each do |sorter|
-      customers = customers.paginate(:page => @num_page, :per_page => @per_page).order(sorter => :asc) # asc is default - just being explicit
+      customers = customers.paginate(:page => @page, :per_page => @num).order(sorter => :asc) # asc is default - just being explicit
     end
     @customers = customers
     # binding.pry
