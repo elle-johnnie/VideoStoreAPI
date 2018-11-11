@@ -38,7 +38,15 @@ describe CustomersController do
         path = '/customers?sort=registered_at'
         get path, as: :json
         body = JSON.parse(response.body)
-        expect(body.first["name"][0]).must_equal "A"
+        expect(body.last["name"]).must_equal "customer_first"
+
+        new_customer.name = "wabylala"
+        new_customer.save!
+
+        path = '/customers?sort=registered_at'
+        get path, as: :json
+        body = JSON.parse(response.body)
+        expect(body.last["name"]).must_equal "wabylala"
       end
 
       it 'defaults to id: :asc if the query is nil or an empty string' do
