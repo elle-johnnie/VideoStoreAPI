@@ -1,5 +1,5 @@
 class MoviesController < ApplicationController
-  before_action :get_query_params, only: [:index, :current] # TODO: add :history
+  before_action :get_query_params, only: [:index] # TODO: add :current and :history
 
   def index
     movies = Movie.all

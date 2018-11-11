@@ -110,63 +110,108 @@ describe CustomersController do
       end
     end
 
-    describe 'endpoints' do
-      let(:rental) {
-        { customer_id: Customer.first.id,
-          movie_id: Movie.last.id
-        }
+    describe 'If the client requests both sorting and pagination, pagination should be relative to the sorted order' do
+      it 'customers#index orders before it paginates' do
+        last_page = Customer.count
+
+        # in the database:
+        first_customer = Customer.first # "Beckham Use Me ONLY For rentals#overdue"
+        last_customer = Customer.last # "Yabadabadoo Use Me ONLY For rentals#overdue"
+
+        first_customer_by_name = Customer.order(:name).first # "Ada Lovelace"
+        last_customer_by_name = Customer.order(:name).last # "Zipper Zigzag"
+
+        first_customer_by_pc = Customer.order(:postal_code).first # "Ada Lovelace2",
+        last_customer_by_pc = Customer.order(:postal_code).last # "Angelica Use Me ONLY For rentals#overdue"
+
+        first_customer_by_regat = Customer.order(:registered_at).first # "Zipper Zigzag"
+        last_customer_by_regat = Customer.order(:registered_at).last # "Ada Lovelace2"
+
+        database_customers = [[first_customer_by_name, first_customer_by_pc, first_customer_by_regat],
+                              [last_customer_by_name, last_customer_by_pc, last_customer_by_regat]]
+
+        # in query params: get 1 item on page 1. Also sort by each field.
+        # then get 1 item on page(last). Also sort by each field.
+
+        path = '/customers?n=1&p='
+        page_number_query = ["1", "#{last_page}"] # first page, last page
+        sort_query = %w(name postal%20code registered%20at)
+
+
+        # path_with_sort = '/customers?n=1&p=7&sort=postal+code'
+        #    get path_with_sort, as: :json
+        #    body = JSON.parse(response.body)
+        # expect(body[0]["name"]).must_equal Customer.order(:postal_code).last.name
+
+        page_number_query.each_with_index do |page_number, i_pages|
+          path_with_p = path + page_number + "&sort="
+          sort_query.each_with_index do |query, i_sorters|
+           path_with_sort = path_with_p + query
+           get path_with_sort, as: :json
+           body = JSON.parse(response.body)
+           expect(body[0]["name"]).must_equal database_customers[i_pages][i_sorters].name
+          end
+        end
+
+        # edge: TODO: what if query params are wonky? (test some likely urls)
+      end
+    end
+  end
+
+  describe 'Optional (additional) endpoints' do
+    let(:rental) {
+      { customer_id: Customer.first.id,
+        movie_id: Movie.last.id
       }
-      it 'can list all rentals that are currently checked out by customer' do
-        # the first customer has one movie checked out
-        id = Customer.first.id
-        get "/customers/#{id}/current", as: :json
-        value(response).must_be :successful?
-        fields = %w(checked_out due movie rental_id returned)
-        body = JSON.parse(response.body)
-        # returns JSON of expected fields, sort fields
-        body.each do |movie|
-          expect(movie.keys.sort).must_equal fields.sort
-        end
-
-        # count movies in array with nil checkin date
-        expect(body.count).must_equal 1
-        expect do
-          post check_out_path, params: rental, as: :json
-        end.must_change 'Rental.count', 1
-
-        get "/customers/#{id}/current", as: :json
-        body = JSON.parse(response.body)
-        expect(body.count).must_equal 2
+    }
+    it 'can list all rentals that are currently checked out by customer' do
+      # the first customer has one movie checked out
+      id = Customer.first.id
+      get "/customers/#{id}/current", as: :json
+      value(response).must_be :successful?
+      fields = %w(checked_out due movie rental_id returned)
+      body = JSON.parse(response.body)
+      # returns JSON of expected fields, sort fields
+      body.each do |movie|
+        expect(movie.keys.sort).must_equal fields.sort
       end
 
-      it 'can list all rentals in customers rental history' do
-        # the first customer has one movie checked out
-        id = Customer.first.id
-        # checkout a movie for first customer
+      # count movies in array with nil checkin date
+      expect(body.count).must_equal 1
+      expect do
         post check_out_path, params: rental, as: :json
-        # return movie to provide a history
-        post check_in_path, params: rental, as: :json
-        # count movies in array with checkin date
-        # expect do
-        #   post check_in_path, params: rental, as: :json
-        # end.wont_change 'Rental.count'
+      end.must_change 'Rental.count', 1
 
-        get "/customers/#{id}/history", as: :json
-        value(response).must_be :successful?
-        fields = %w(checked_out due movie rental_id returned)
-        body = JSON.parse(response.body)
-        # returns JSON of expected fields, sort fields
-
-
-        body.each do |movie|
-          expect(movie.keys.sort).must_equal fields.sort
-        end
-        expect(body.count).must_equal 1
-        expect(body.last["movie"]["title"]).must_equal Movie.last.title
-      end
-
+      get "/customers/#{id}/current", as: :json
+      body = JSON.parse(response.body)
+      expect(body.count).must_equal 2
     end
 
+    it 'can list all rentals in customers rental history' do
+      # the first customer has one movie checked out
+      id = Customer.first.id
+      # checkout a movie for first customer
+      post check_out_path, params: rental, as: :json
+      # return movie to provide a history
+      post check_in_path, params: rental, as: :json
+      # count movies in array with checkin date
+      # expect do
+      #   post check_in_path, params: rental, as: :json
+      # end.wont_change 'Rental.count'
+
+      get "/customers/#{id}/history", as: :json
+      value(response).must_be :successful?
+      fields = %w(checked_out due movie rental_id returned)
+      body = JSON.parse(response.body)
+      # returns JSON of expected fields, sort fields
+
+
+      body.each do |movie|
+        expect(movie.keys.sort).must_equal fields.sort
+      end
+      expect(body.count).must_equal 1
+      expect(body.last["movie"]["title"]).must_equal Movie.last.title
+    end
 
   end
 

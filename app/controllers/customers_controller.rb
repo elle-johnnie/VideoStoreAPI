@@ -2,11 +2,16 @@ class CustomersController < ApplicationController
   before_action :get_query_params, only: [:index] # TODO: add :current and :history
 
   def index
-    customers = Customer.all
+    if @page || @num
+      @page ||= 1
+      @num ||= Customer.count
+      customers = Customer.all.paginate(:page => @page, :per_page => @num)
+    else
+      customers = Customer.all
+    end
 
     @sorters.each do |sorter|
-      customers = customers.paginate(:page => @page, :per_page => @num).order(sorter => :asc)
-                                    # asc is default - just being explicit
+      customers = customers.order(sorter.to_sym => :asc) # asc is default - just being explicit
     end
     @customers = customers
   end

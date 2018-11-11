@@ -5,7 +5,7 @@ customer_in:
   registered_at: 2018-11-05 12:32:19
   address:
   state: MyString
-  postal_code: 22222
+  postal_code: "22222"
   phone: aphonenumber
 
 customer_out:
@@ -13,7 +13,7 @@ customer_out:
   registered_at: 2018-11-05 12:32:19
   address:
   state: MyString
-  postal_code: 11111
+  postal_code: "11111"
   phone: MyString
 
 customer_tomorrow:
@@ -37,7 +37,7 @@ customer_odt_1:
   registered_at: 1991-11-06 12:32:19
   address:
   state: MyString
-  postal_code: "99999999"
+  postal_code: 99999998
   phone: MyString
 
 customer_odt_2:
@@ -45,7 +45,7 @@ customer_odt_2:
   registered_at: 1991-11-06 12:32:19
   address:
   state: MyString
-  postal_code: "99999999"
+  postal_code: 99999999
   phone: MyString
 
 customer_odt_3:
@@ -53,5 +53,5 @@ customer_odt_3:
   registered_at: 1991-11-06 12:32:19
   address:
   state: MyString
-  postal_code: "99999999"
+  postal_code: 99999998
   phone: MyString
