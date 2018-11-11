@@ -132,5 +132,67 @@ describe MoviesController do
         expect(body[1]["title"]).must_equal "CATTACA"
       end
     end
+
+
+    describe 'endpoints' do
+      let(:rental) {
+        { customer_id: Customer.first.id,
+          movie_id: Movie.last.id
+        }
+      }
+      it 'can list all rentals that are currently checked out' do
+        # clear all rental data
+        Rental.destroy_all
+        # the movie gets checked out by the first customer
+        post check_out_path, params: rental, as: :json
+
+        id = Movie.last.id
+        get "/movies/#{id}/current", as: :json
+        value(response).must_be :successful?
+        fields = %w(rental_id checked_out due returned customer)
+        body = JSON.parse(response.body)
+        # returns JSON of expected fields, sort fields
+        body.each do |customer|
+          expect(customer.keys.sort).must_equal fields.sort
+        end
+       
+        expect(body[0]["customer"].keys).must_include "name"
+        expect(body[0]["customer"]["postal_code"]).must_equal Customer.first.postal_code
+        # count movies in array with nil checkin date
+        expect(body.count).must_equal 1
+        post check_out_path, params: rental, as: :json
+
+
+        get "/movies/#{id}/current", as: :json
+        body = JSON.parse(response.body)
+        expect(body.count).must_equal 2
+      end
+
+      it 'can list all rental history for completed rentals' do
+        # clear all rental data
+        Rental.destroy_all
+        id = Movie.last.id
+        # the movie gets checked out by the first customer
+        post check_out_path, params: rental, as: :json
+        # return movie to provide a history
+        post check_in_path, params: rental, as: :json
+
+        get "/movies/#{id}/history", as: :json
+        value(response).must_be :successful?
+        fields = %w(rental_id checked_out due returned customer)
+        body = JSON.parse(response.body)
+        # returns JSON of expected fields, sort fields
+        body.each do |customer|
+          expect(customer.keys.sort).must_equal fields.sort
+        end
+        expect(body[0]["customer"].keys).must_include "name"
+        expect(body.count).must_equal 1
+
+        expect(body[0]["customer"]["name"]).must_equal Customer.first.name
+        expect(body[0]["customer"]["postal_code"]).must_equal Customer.first.postal_code
+      end
+    end
   end
 end
+
+
