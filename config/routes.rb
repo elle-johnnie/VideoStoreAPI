@@ -7,6 +7,12 @@ Rails.application.routes.draw do
   post '/rentals/check-in', to: 'rentals#check_in', as: 'check_in'
   get '/rentals/overdue', to: 'rentals#overdue', as: 'overdue'
 
+  get '/movies/:id/current', to: 'movies#current'
+  get '/movies/:id/history', to: 'movies#history'
+
+  get '/customers/:id/current', to: 'customers#current'
+  get '/customers/:id/history', to: 'customers#history'
+
   resources :customers, only: [:index]
   resources :movies, only: [:index, :show, :create]
 
