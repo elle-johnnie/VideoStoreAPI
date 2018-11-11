@@ -20,22 +20,30 @@ private
   # This method returns a 1-D ordered Array of 1+ unique "sorters" (String)
   # that are permitted for the controller calling this method.
   # A "sorter" is the name of the JSON field to sort by.
-  # Each controller permits different sort fields (@valid_sorters).
+  # Each controller action permits different sort fields (@valid_sorters).
   # You can't apply the same sorter more than once (occurrences after the first
   # will be ignored).
   # If there are multiple sorters, they are applied L --> R.
   # The default sorter is "id".
   def permit_sort_params
     return [:id] unless params[:sort]
-    @valid_sorters = {
-                      'customers' => %w(name registered_at postal_code),
-                      'movies' => %w(title release_date),
-                      'rentals' => %w(checkout_date due_date title name)
+    valid_sorters = {
+                      'customers' =>
+                        { 'index' => %w(name registered_at postal_code),
+                          'history' => %w(checkout_date due_date title)
+                        },
+                      'movies' =>
+                        { 'index' => %w(title release_date),
+                          'history' => %w(checkout_date due_date name)
+                        },
+                      'rentals' =>
+                        { 'overdue' => %w(checkout_date due_date title name)
+                        }
                     }
 
     sorters = CGI.parse(request.query_string)["sort"].uniq
     sorters = sorters.map{|sorter| sorter.gsub(' ', '_')}
-    sorters = sorters.select { |sorter| @valid_sorters[controller_name].include?(sorter) }
+    sorters = sorters.select { |sorter| valid_sorters[controller_name][action_name].include?(sorter) }
     return sorters.empty? ? ["id"] : sorters
   end
 

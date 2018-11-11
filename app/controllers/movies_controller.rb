@@ -1,5 +1,5 @@
 class MoviesController < ApplicationController
-  before_action :get_query_params, only: [:index, :current]
+  before_action :get_query_params, only: [:index, :current] # TODO: add :history
 
   def index
     movies = Movie.all
@@ -22,6 +22,10 @@ class MoviesController < ApplicationController
       render json: {ok: false, cause: "validation errors", errors: @movie.errors}, status: :bad_request
     end
   end
+
+# TODO: @sorters (user stories do not specify which fields must be sortable)
+# SJL: I'm thinking %w(checkout_date due_date name)
+
   # get '/movies/:id/current'
   def current
     @movie = Movie.find_by(id: params[:id])
@@ -34,6 +38,8 @@ class MoviesController < ApplicationController
     end
   end
 
+# TODO: @sorters (user stories do not specify which fields must be sortable)
+# SJL: I'm thinking %w(checkout_date due_date name)
   def history
     @movie = Movie.find_by(id: params[:id])
     @history = @movie.rentals.where.not(checkin_date: nil)
