@@ -3,36 +3,42 @@ class ApplicationController < ActionController::API
 
 private
 
-# Any endpoint that returns a list should accept 3 optional query parameters:
+# User story: Any endpoint that returns a list should accept 3 optional query
+# parameters.
+#
+# The methods called within get_query_params parse query params
+# and return permitted params as instance variables.
+# To run this code before any controller action (and access these instance
+# variables), add this to the top of your controller class:
+# ` before_action :get_query_params, only: [ <controller action(s)> ] `
   def get_query_params
     @sorters = permit_sort_params
-##################################################################
-    @page = permit_p_param        # SJL: these don't do anything
-    @num = permit_n_param       # (see note in comment below.)
-##################################################################
+    @page = permit_p_param
+    @num = permit_n_param
   end
 
+  # This method returns a 1-D ordered Array of 1+ unique "sorters" (String)
+  # that are permitted for the controller calling this method.
+  # A "sorter" is the name of the JSON field to sort by.
+  # Each controller permits different sort fields (@valid_sorters).
+  # You can't apply the same sorter more than once (occurrences after the first
+  # will be ignored).
+  # If there are multiple sorters, they are applied L --> R.
+  # The default sorter is "id".
   def permit_sort_params
     return [:id] unless params[:sort]
-    # returns an array of 1+ sort fields (string) that are valid for the model.
-    # different controllers accept different sort fields.
     @valid_sorters = {
                       'customers' => %w(name registered_at postal_code),
                       'movies' => %w(title release_date),
-                      'rentals' => %w(checkout_date due_date title name) # Just For Overdue Rentals (rentals#overdue)
+                      'rentals' => %w(checkout_date due_date title name)
                     }
 
-# You can't apply the same sorter twice -- the second instance will be ignored
     sorters = CGI.parse(request.query_string)["sort"].uniq
     sorters = sorters.map{|sorter| sorter.gsub(' ', '_')}
     sorters = sorters.select { |sorter| @valid_sorters[controller_name].include?(sorter) }
-    return sorters.empty? ? ["id"] : sorters # The default sorter is "id"
+    return sorters.empty? ? ["id"] : sorters
   end
 
-##################################################################
-# SJL: These sorters haven't been created and don't do anything,
-# but this is where it could (and I think should) go.
-##################################################################
   def permit_n_param
     if params[:n]
       num = CGI.parse(request.query_string)["n"].uniq
@@ -51,8 +57,6 @@ private
       return page.empty? ? 10 : page.first.to_i
     end
   end
-##################################################################
-
 end
 
 # Note on CGI.parse:
@@ -63,9 +67,12 @@ end
       # params = CGI.parse(uri.query)
       # params is now {"id"=>["4"], "empid"=>["6"]}
 # An example based on this app would be:
-#       sorters = CGI.parse(request.query_string)
+#      request.query_string = "sort=title&sort=title&sort=name&sort=bogus!& \
+#                              sort=registered%20at&p=3&p=-1&p=i+love+bubble+tea"
+#      params = CGI.parse(request.query_string)
 # which would return:
-#       { "sort"=>["title", "name", "bogus!", "registered at"], "p" => ["3", "-1", "i love bubble tea"]}
+#      { "sort"=>["title", "title", "name", "bogus!", "registered at"],
+#        "p" => ["3", "-1", "i love bubble tea"] }
 #
 #
 #

@@ -1,5 +1,5 @@
 class MoviesController < ApplicationController
-  before_action :get_query_params, only: [:index, :overdue]
+  before_action :get_query_params, only: [:index]
 
   def index
     movies = Movie.all

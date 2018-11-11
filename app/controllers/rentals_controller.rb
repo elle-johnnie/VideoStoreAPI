@@ -27,7 +27,7 @@ class RentalsController < ApplicationController
       if sorter == "checkout_date" || sorter == "due_date"
         overdue_rentals = overdue_rentals.order(sorter => :asc) # asc is default - just being explicit
       elsif sorter == "title"
-        overdue_rentals = overdue_rentals.order("movies.title asc")
+        overdue_rentals = overdue_rentals.order("movies.title asc") 
       elsif sorter == "name"
         overdue_rentals = overdue_rentals.order("customers.name asc")
       end

@@ -1,5 +1,5 @@
 class Rental < ApplicationRecord
-    # relationships
+  # relationships
   belongs_to :customer
   belongs_to :movie
 
